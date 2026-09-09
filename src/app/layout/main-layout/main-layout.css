@@ -1,0 +1,172 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar__logo {
+  font-size: 1.4rem;
+}
+
+.navbar__name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #4f46e5;
+}
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.role-switch {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.role-switch__label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #9ca3af;
+}
+
+.role-switch__select {
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  background: #ffffff;
+  color: #111827;
+}
+
+.navbar__user {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.2;
+}
+
+.navbar__user-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.navbar__user-role {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.navbar__logout {
+  padding: 8px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.navbar__logout:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.layout__body {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+}
+
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  padding: 20px 12px;
+}
+
+.sidebar__menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #374151;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.sidebar__link:hover {
+  background: #f3f4f6;
+}
+
+.sidebar__link--active {
+  background: #eef2ff;
+  color: #4338ca;
+  font-weight: 600;
+}
+
+.sidebar__icon {
+  font-size: 1rem;
+}
+
+.sidebar__empty {
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  background: #f3f4f6;
+}
+
+@media (max-width: 720px) {
+  .layout__body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: auto;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .sidebar__menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}

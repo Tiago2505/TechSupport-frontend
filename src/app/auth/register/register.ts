@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   AbstractControl,
   FormBuilder,
@@ -7,7 +8,9 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+
+import { AuthService } from '../../core/services/auth.service';
 
 function passwordsMatchValidator(control: AbstractControl): ValidationErrors | null {
   const password = control.get('password')?.value;
@@ -24,19 +27,22 @@ function passwordsMatchValidator(control: AbstractControl): ValidationErrors | n
   styleUrl: './register.css',
 })
 export class Register {
-  form: FormGroup;
+  private readonly fb = inject(FormBuilder);
+  private readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group(
-      {
-        fullName: ['', [Validators.required, Validators.minLength(3)]],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        confirmPassword: ['', [Validators.required]],
-      },
-      { validators: passwordsMatchValidator },
-    );
-  }
+  readonly submitting = signal(false);
+  readonly errorMessage = signal<string | null>(null);
+
+  readonly form: FormGroup = this.fb.group(
+    {
+      fullName: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]],
+    },
+    { validators: passwordsMatchValidator },
+  );
 
   get fullName() {
     return this.form.get('fullName');
@@ -60,6 +66,33 @@ export class Register {
       return;
     }
 
-    console.log('Register form value:', this.form.value);
+    const { fullName, email, password } = this.form.getRawValue();
+
+    this.submitting.set(true);
+    this.errorMessage.set(null);
+
+    this.auth.register({ fullName, email, password }).subscribe({
+      next: () => {
+        this.submitting.set(false);
+        this.router.navigate(['/login'], { queryParams: { registered: 'true' } });
+      },
+      error: (error: HttpErrorResponse) => {
+        this.submitting.set(false);
+        this.errorMessage.set(this.resolveErrorMessage(error));
+      },
+    });
+  }
+
+  private resolveErrorMessage(error: HttpErrorResponse): string {
+    if (error.status === 409) {
+      return 'Este correo ya está registrado.';
+    }
+    if (error.status === 400 || error.status === 422) {
+      return 'Revisa los datos ingresados e inténtalo de nuevo.';
+    }
+    if (error.status === 0) {
+      return 'No se pudo conectar con el servidor. Inténtalo más tarde.';
+    }
+    return 'Ocurrió un error al crear la cuenta. Inténtalo de nuevo.';
   }
 }

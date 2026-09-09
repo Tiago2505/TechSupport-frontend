@@ -5,6 +5,10 @@
       <p>Regístrate para empezar a usar TechSupport</p>
     </div>
 
+    @if (errorMessage()) {
+      <div class="form-alert form-alert--error" role="alert">{{ errorMessage() }}</div>
+    }
+
     <form class="auth-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
       <div class="form-field">
         <label for="fullName">Nombre completo</label>
@@ -88,7 +92,9 @@
         }
       </div>
 
-      <button type="submit" class="submit-btn">Crear cuenta</button>
+      <button type="submit" class="submit-btn" [disabled]="submitting()">
+        {{ submitting() ? 'Creando cuenta…' : 'Crear cuenta' }}
+      </button>
     </form>
 
     <p class="auth-footer">

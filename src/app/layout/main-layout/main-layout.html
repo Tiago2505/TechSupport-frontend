@@ -1,0 +1,60 @@
+<div class="layout">
+  <header class="navbar">
+    <div class="navbar__brand">
+      <span class="navbar__logo" aria-hidden="true">🛠️</span>
+      <span class="navbar__name">TechSupport</span>
+    </div>
+
+    <div class="navbar__actions">
+      <label class="role-switch">
+        <span class="role-switch__label">Rol (demo)</span>
+        <select
+          class="role-switch__select"
+          [value]="role() ?? ''"
+          (change)="onRoleChange($any($event.target).value)"
+        >
+          @for (option of roles; track option) {
+            <option [value]="option">{{ roleLabels[option] }}</option>
+          }
+        </select>
+      </label>
+
+      <div class="navbar__user">
+        <span class="navbar__user-name">{{ user()?.fullName ?? 'Invitado' }}</span>
+        @if (role(); as currentRole) {
+          <span class="navbar__user-role">{{ roleLabels[currentRole] }}</span>
+        }
+      </div>
+
+      <button type="button" class="navbar__logout" (click)="logout()">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <div class="layout__body">
+    <aside class="sidebar">
+      <nav>
+        <ul class="sidebar__menu">
+          @for (item of menu(); track item.path) {
+            <li>
+              <a
+                class="sidebar__link"
+                [routerLink]="item.path"
+                routerLinkActive="sidebar__link--active"
+                [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+              >
+                <span class="sidebar__icon" aria-hidden="true">{{ item.icon }}</span>
+                <span>{{ item.label }}</span>
+              </a>
+            </li>
+          } @empty {
+            <li class="sidebar__empty">Sin opciones para este rol.</li>
+          }
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <router-outlet />
+    </main>
+  </div>
+</div>

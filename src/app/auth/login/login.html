@@ -5,6 +5,13 @@
       <p>Ingresa tus credenciales para acceder a TechSupport</p>
     </div>
 
+    @if (successMessage()) {
+      <div class="form-alert form-alert--success" role="status">{{ successMessage() }}</div>
+    }
+    @if (errorMessage()) {
+      <div class="form-alert form-alert--error" role="alert">{{ errorMessage() }}</div>
+    }
+
     <form class="auth-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
       <div class="form-field">
         <label for="email">Correo electrónico</label>
@@ -48,12 +55,23 @@
         }
       </div>
 
-      <button type="submit" class="submit-btn">Entrar</button>
+      <button type="submit" class="submit-btn" [disabled]="submitting()">
+        {{ submitting() ? 'Entrando…' : 'Entrar' }}
+      </button>
     </form>
 
     <p class="auth-footer">
       ¿No tienes una cuenta?
       <a routerLink="/register">Regístrate</a>
     </p>
+
+    <div class="auth-demo">
+      <p class="auth-demo__title">¿Solo quieres explorar? Entra en modo demo</p>
+      <div class="auth-demo__actions">
+        <button type="button" (click)="enterDemo('USER')">Cliente</button>
+        <button type="button" (click)="enterDemo('TECHNICIAN')">Técnico</button>
+        <button type="button" (click)="enterDemo('ADMIN')">Administrador</button>
+      </div>
+    </div>
   </div>
 </div>

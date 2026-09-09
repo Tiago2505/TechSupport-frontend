@@ -18,3 +18,139 @@ body {
   color: #1f2937;
   -webkit-font-smoothing: antialiased;
 }
+
+/* ---- Shared dashboard building blocks ---- */
+.ts-page {
+  padding: 28px 32px;
+}
+
+.ts-page__title {
+  margin: 0 0 4px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.ts-page__subtitle {
+  margin: 0 0 24px;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.ts-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-bottom: 24px;
+}
+
+.ts-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.ts-card__label {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+}
+
+.ts-card__value {
+  margin: 8px 0 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.ts-card__hint {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.ts-section {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.ts-section__title {
+  margin: 0 0 16px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.ts-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.ts-table th,
+.ts-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #f0f1f3;
+}
+
+.ts-table th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+}
+
+.ts-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.ts-table__scroll {
+  overflow-x: auto;
+}
+
+.ts-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ts-badge--pendiente { background: #fef3c7; color: #92400e; }
+.ts-badge--en_proceso { background: #dbeafe; color: #1e40af; }
+.ts-badge--resuelto { background: #dcfce7; color: #166534; }
+.ts-badge--baja { background: #f1f5f9; color: #475569; }
+.ts-badge--media { background: #e0e7ff; color: #3730a3; }
+.ts-badge--alta { background: #ffedd5; color: #9a3412; }
+.ts-badge--critica { background: #fee2e2; color: #991b1b; }
+
+.ts-bar {
+  display: grid;
+  grid-template-columns: 120px 1fr 40px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+}
+
+.ts-bar__track {
+  height: 10px;
+  border-radius: 999px;
+  background: #eef0f4;
+  overflow: hidden;
+}
+
+.ts-bar__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+}
