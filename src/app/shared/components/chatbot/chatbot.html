@@ -1,0 +1,50 @@
+@if (open()) {
+  <section class="chatbot__window" role="dialog" aria-label="Asistente de soporte con IA">
+    <header class="chatbot__header">
+      <div>
+        <p class="chatbot__title">Asistente IA</p>
+        <p class="chatbot__subtitle">Diagnóstico previo</p>
+      </div>
+      <button type="button" class="chatbot__icon-btn" aria-label="Reiniciar conversación" (click)="restart()">
+        ↻
+      </button>
+      <button type="button" class="chatbot__icon-btn" aria-label="Cerrar" (click)="toggle()">✕</button>
+    </header>
+
+    <div class="chatbot__body">
+      @for (message of messages(); track $index) {
+        <p class="chatbot__msg chatbot__msg--{{ message.from }}">{{ message.text }}</p>
+      }
+
+      @if (options().length) {
+        <div class="chatbot__options">
+          @for (option of options(); track option.label) {
+            <button type="button" class="chatbot__option" (click)="choose(option)">
+              {{ option.label }}
+            </button>
+          }
+        </div>
+      }
+
+      @if (needsTechnician()) {
+        <button type="button" class="ts-btn-primary chatbot__cta" (click)="createRequest()">
+          <span aria-hidden="true">🎫</span> Crear solicitud automáticamente
+        </button>
+      } @else if (!inProgress()) {
+        <button type="button" class="chatbot__option" (click)="restart()">
+          Empezar de nuevo
+        </button>
+      }
+    </div>
+  </section>
+}
+
+<button
+  type="button"
+  class="chatbot__fab"
+  [attr.aria-expanded]="open()"
+  aria-label="Abrir asistente de soporte con IA"
+  (click)="toggle()"
+>
+  {{ open() ? '✕' : '💬' }}
+</button>

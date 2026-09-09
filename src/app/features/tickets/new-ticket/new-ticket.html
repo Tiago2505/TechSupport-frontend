@@ -1,0 +1,65 @@
+<section class="ts-page">
+  <h1 class="ts-page__title">Crear nuevo ticket</h1>
+  <p class="ts-page__subtitle">Describe tu incidencia y un técnico la atenderá por orden de llegada.</p>
+
+  @if (prefilled()) {
+    <div class="nt-alert nt-alert--info" role="status">
+      Hemos rellenado el título y la descripción a partir del asistente. Revísalos antes de enviar.
+    </div>
+  }
+
+  @if (submitted()) {
+    <div class="nt-alert nt-alert--success" role="status">
+      Tu ticket se registró correctamente. Te avisaremos cuando un técnico lo tome.
+    </div>
+    <a class="ts-btn-ghost" routerLink="/dashboard">Volver al inicio</a>
+  } @else {
+    <form class="ts-section nt-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="nt-field">
+        <label for="title">Título</label>
+        <input id="title" type="text" formControlName="title" placeholder="Resumen breve del problema" />
+        @if (title?.invalid && title?.touched) {
+          <span class="nt-error">El título es obligatorio (mínimo 5 caracteres).</span>
+        }
+      </div>
+
+      <div class="nt-row">
+        <div class="nt-field">
+          <label for="category">Categoría</label>
+          <select id="category" formControlName="category">
+            @for (category of categories; track category) {
+              <option [value]="category">{{ category }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="nt-field">
+          <label for="priority">Prioridad</label>
+          <select id="priority" formControlName="priority">
+            @for (priority of priorities; track priority) {
+              <option [value]="priority">{{ priority }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="nt-field">
+        <label for="description">Descripción</label>
+        <textarea
+          id="description"
+          rows="5"
+          formControlName="description"
+          placeholder="¿Qué ocurre? ¿Qué has probado? ¿Cuándo empezó?"
+        ></textarea>
+        @if (description?.invalid && description?.touched) {
+          <span class="nt-error">La descripción es obligatoria (mínimo 10 caracteres).</span>
+        }
+      </div>
+
+      <div class="nt-actions">
+        <a class="ts-btn-ghost" routerLink="/dashboard">Cancelar</a>
+        <button type="submit" class="ts-btn-primary">Enviar ticket</button>
+      </div>
+    </form>
+  }
+</section>

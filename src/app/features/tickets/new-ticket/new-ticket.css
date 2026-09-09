@@ -1,0 +1,68 @@
+.nt-form {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.nt-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.nt-field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.nt-field input,
+.nt-field select,
+.nt-field textarea {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font: inherit;
+  color: #111827;
+  background: #ffffff;
+}
+
+.nt-field textarea {
+  resize: vertical;
+}
+
+.nt-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.nt-error {
+  font-size: 0.78rem;
+  color: #b91c1c;
+}
+
+.nt-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.nt-alert {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+.nt-alert--info {
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+.nt-alert--success {
+  background: #dcfce7;
+  color: #166534;
+}

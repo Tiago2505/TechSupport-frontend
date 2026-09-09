@@ -3,6 +3,7 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 
 import { AuthService } from '../../core/services/auth.service';
 import { UserRole } from '../../core/models/user.model';
+import { Chatbot } from '../../shared/components/chatbot/chatbot';
 
 interface MenuItem {
   label: string;
@@ -36,7 +37,7 @@ const MENU_BY_ROLE: Record<UserRole, MenuItem[]> = {
 
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, Chatbot],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })

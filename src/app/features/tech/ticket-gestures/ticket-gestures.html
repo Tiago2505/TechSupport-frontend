@@ -1,0 +1,111 @@
+<section class="ts-page">
+  @if (ticket(); as t) {
+    <a class="tg__back" routerLink="/dashboard/queue">← Volver a la cola</a>
+
+    <div class="tg__head">
+      <div>
+        <h1 class="ts-page__title">{{ t.id }} · {{ t.subject }}</h1>
+        <p class="ts-page__subtitle">
+          Reportado por {{ t.requester }} · Categoría: {{ t.category }}
+        </p>
+      </div>
+      <div class="tg__badges">
+        <span class="ts-badge ts-badge--{{ t.priority.toLowerCase() }}">{{ t.priority }}</span>
+        <span class="ts-badge ts-badge--{{ t.status.toLowerCase() }}">{{ statusLabels[t.status] }}</span>
+      </div>
+    </div>
+
+    <div class="tg__layout">
+      <div>
+        <div class="ts-section">
+          <h2 class="ts-section__title">Nueva gestión</h2>
+          <form class="tg__form" [formGroup]="form" (ngSubmit)="addGesture()" novalidate>
+            <div class="tg__field">
+              <label for="type">Tipo</label>
+              <select id="type" formControlName="type">
+                @for (type of gestureTypes; track type) {
+                  <option [value]="type">{{ gestureTypeLabels[type] }} ({{ type }})</option>
+                }
+              </select>
+            </div>
+            <div class="tg__field">
+              <label for="description">Descripción</label>
+              <textarea
+                id="description"
+                rows="3"
+                formControlName="description"
+                placeholder="Describe el avance realizado…"
+              ></textarea>
+              @if (description.invalid && description.touched) {
+                <span class="tg__error">Escribe al menos 10 caracteres.</span>
+              }
+            </div>
+            <button type="submit" class="ts-btn-primary">Agregar gestión</button>
+          </form>
+        </div>
+
+        <div class="ts-section">
+          <div class="tg__section-head">
+            <h2 class="ts-section__title">Historial de gestiones (pila LIFO)</h2>
+            <button type="button" class="ts-btn-ghost" [disabled]="summarizing()" (click)="summarize()">
+              <span aria-hidden="true">✨</span>
+              {{ summarizing() ? 'Resumiendo…' : 'Resumir Historial con IA' }}
+            </button>
+          </div>
+
+          @if (summary(); as text) {
+            <div class="tg__summary" role="status">
+              <p class="tg__summary-label">Resumen del asistente IA</p>
+              <p>{{ text }}</p>
+            </div>
+          }
+
+          <ol class="tg__stack">
+            @for (gesture of history(); track gesture.id; let i = $index) {
+              <li class="tg__gesture" [class.tg__gesture--top]="i === 0">
+                <div class="tg__gesture-top">
+                  <span class="ts-badge tg__type tg__type--{{ gesture.type.toLowerCase() }}">
+                    {{ gestureTypeLabels[gesture.type] }}
+                  </span>
+                  @if (i === 0) {
+                    <span class="tg__tag">Última gestión</span>
+                  }
+                  <span class="tg__meta">
+                    {{ gesture.author }} · {{ gesture.createdAt | date: 'short' }}
+                  </span>
+                </div>
+                <p class="tg__gesture-text">{{ gesture.description }}</p>
+              </li>
+            } @empty {
+              <li class="tg__empty">Todavía no hay gestiones registradas para este ticket.</li>
+            }
+          </ol>
+        </div>
+      </div>
+
+      <aside class="ts-section tg__status">
+        <h2 class="ts-section__title">Estado del ticket</h2>
+        <p class="tg__status-current">
+          Actual: <strong>{{ statusLabels[t.status] }}</strong>
+        </p>
+        <p class="tg__status-hint">Cambiar a:</p>
+        <div class="tg__status-actions">
+          @for (status of statusOptions; track status) {
+            <button
+              type="button"
+              class="tg__status-btn"
+              [disabled]="t.status === status"
+              (click)="changeStatus(status)"
+            >
+              {{ statusLabels[status] }}
+            </button>
+          }
+        </div>
+      </aside>
+    </div>
+  } @else {
+    <h1 class="ts-page__title">Ticket no encontrado</h1>
+    <p class="ts-page__subtitle">No existe un ticket con el identificador «{{ ticketId() }}».</p>
+    <a class="ts-btn-ghost" routerLink="/dashboard/queue">Volver a la cola</a>
+  }
+</section>

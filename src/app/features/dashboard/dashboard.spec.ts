@@ -36,8 +36,8 @@ describe('Dashboard', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('renders the user dashboard for USER', () => {
-    expect(render('USER', 'app-user-dashboard')).not.toBeNull();
+  it('renders the home dashboard for USER', () => {
+    expect(render('USER', 'app-home')).not.toBeNull();
   });
 
   it('renders the tech dashboard for TECHNICIAN', () => {

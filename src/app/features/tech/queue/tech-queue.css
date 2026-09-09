@@ -1,0 +1,48 @@
+.queue__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.queue__header .ts-page__subtitle {
+  margin-bottom: 0;
+}
+
+.queue__pos {
+  font-weight: 700;
+  color: #4f46e5;
+}
+
+.queue__row--next {
+  background: #eef2ff;
+}
+
+.queue__row--next .queue__pos::after {
+  content: ' · siguiente';
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.queue__link {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+.queue__link:hover {
+  background: #f9fafb;
+}
+
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

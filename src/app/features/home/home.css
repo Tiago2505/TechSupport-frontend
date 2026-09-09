@@ -1,0 +1,44 @@
+.home__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.home__header .ts-page__subtitle {
+  margin-bottom: 0;
+}
+
+.home__metric {
+  border-top: 3px solid #d1d5db;
+}
+
+.home__metric--pendiente { border-top-color: #f59e0b; }
+.home__metric--en_proceso { border-top-color: #3b82f6; }
+.home__metric--resuelto { border-top-color: #22c55e; }
+.home__metric--cerrado { border-top-color: #9ca3af; }
+
+.home__section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.home__section-head .ts-section__title {
+  margin-bottom: 0;
+}
+
+.home__link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+.home__link:hover {
+  text-decoration: underline;
+}

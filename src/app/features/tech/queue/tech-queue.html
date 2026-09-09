@@ -1,0 +1,59 @@
+<section class="ts-page">
+  <div class="queue__header">
+    <div>
+      <h1 class="ts-page__title">Cola de soporte pendiente</h1>
+      <p class="ts-page__subtitle">
+        Los tickets se atienden en orden de llegada (FIFO): el más antiguo primero.
+      </p>
+    </div>
+    <button
+      type="button"
+      class="ts-btn-primary"
+      [disabled]="!queue().length"
+      (click)="attendNext()"
+    >
+      <span aria-hidden="true">▶</span> Atender Siguiente Ticket
+    </button>
+  </div>
+
+  <div class="ts-section">
+    <div class="ts-table__scroll">
+      <table class="ts-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Ticket</th>
+            <th>Título</th>
+            <th>Prioridad</th>
+            <th>Creado</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (ticket of queue(); track ticket.id; let i = $index) {
+            <tr [class.queue__row--next]="i === 0">
+              <td class="queue__pos">#{{ i + 1 }}</td>
+              <td>{{ ticket.id }}</td>
+              <td>{{ ticket.subject }}</td>
+              <td>
+                <span class="ts-badge ts-badge--{{ ticket.priority.toLowerCase() }}">
+                  {{ ticket.priority }}
+                </span>
+              </td>
+              <td>{{ ticket.createdAt | date: 'short' }}</td>
+              <td>
+                <button type="button" class="queue__link" (click)="manage(ticket.id)">
+                  Ver
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6">No hay tickets pendientes en la cola. 🎉</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

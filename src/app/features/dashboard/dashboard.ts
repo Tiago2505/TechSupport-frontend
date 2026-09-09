@@ -3,15 +3,15 @@ import { Component, inject } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { AdminDashboard } from './admin-dashboard/admin-dashboard';
 import { TechDashboard } from './tech-dashboard/tech-dashboard';
-import { UserDashboard } from './user-dashboard/user-dashboard';
+import { Home } from '../home/home';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [UserDashboard, TechDashboard, AdminDashboard],
+  imports: [Home, TechDashboard, AdminDashboard],
   template: `
     @switch (auth.role()) {
       @case ('USER') {
-        <app-user-dashboard />
+        <app-home />
       }
       @case ('TECHNICIAN') {
         <app-tech-dashboard />

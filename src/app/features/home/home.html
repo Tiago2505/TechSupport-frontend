@@ -1,0 +1,62 @@
+<section class="ts-page">
+  <div class="home__header">
+    <div>
+      <h1 class="ts-page__title">Hola, {{ auth.currentUser()?.fullName }}</h1>
+      <p class="ts-page__subtitle">Este es el estado de tus solicitudes de soporte.</p>
+    </div>
+    <a class="ts-btn-primary" routerLink="/dashboard/tickets/new">
+      <span aria-hidden="true">➕</span> Crear Nuevo Ticket
+    </a>
+  </div>
+
+  <div class="ts-grid">
+    @for (metric of metrics(); track metric.label) {
+      <article class="ts-card home__metric home__metric--{{ metric.modifier }}">
+        <p class="ts-card__label">{{ metric.label }}</p>
+        <p class="ts-card__value">{{ metric.value }}</p>
+        <p class="ts-card__hint">{{ metric.hint }}</p>
+      </article>
+    }
+  </div>
+
+  <div class="ts-section">
+    <div class="home__section-head">
+      <h2 class="ts-section__title">Tickets recientes</h2>
+      <a class="home__link" routerLink="/dashboard/tickets">Ver todos</a>
+    </div>
+    <div class="ts-table__scroll">
+      <table class="ts-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Asunto</th>
+            <th>Categoría</th>
+            <th>Prioridad</th>
+            <th>Estado</th>
+            <th>Creado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (ticket of recent(); track ticket.id) {
+            <tr>
+              <td>{{ ticket.id }}</td>
+              <td>{{ ticket.subject }}</td>
+              <td>{{ ticket.category }}</td>
+              <td>
+                <span class="ts-badge ts-badge--{{ ticket.priority.toLowerCase() }}">{{ ticket.priority }}</span>
+              </td>
+              <td>
+                <span class="ts-badge ts-badge--{{ ticket.status.toLowerCase() }}">{{ ticket.status }}</span>
+              </td>
+              <td>{{ ticket.createdAt | date: 'short' }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6">Todavía no has reportado ningún ticket.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
