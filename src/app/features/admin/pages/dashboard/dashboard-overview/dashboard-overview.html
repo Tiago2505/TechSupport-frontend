@@ -1,0 +1,109 @@
+<section class="mx-auto grid w-full max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+  <!-- TICKETS -->
+  <div
+    class="group rounded-2xl border border-primary/15 bg-base-100 p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md"
+  >
+    <div class="flex items-start justify-between">
+      <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"
+          />
+        </svg>
+      </div>
+
+      <span
+        class="rounded-full bg-primary/10 px-2 py-1 text-[9px] font-bold uppercase tracking-wider text-primary"
+      >
+        Tickets
+      </span>
+    </div>
+
+    <p class="mt-4 text-2xl font-bold text-base-content">{{ ticketsLength() }}</p>
+
+    <p class="mt-1 text-xs text-base-content/45">Tickets registrados</p>
+  </div>
+
+  <!-- USERS -->
+  <div
+    class="group rounded-2xl border border-info/15 bg-base-100 p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-info/30 hover:shadow-md"
+  >
+    <div class="flex items-start justify-between">
+      <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-info/10 text-info">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+          />
+
+          <circle cx="9" cy="7" r="4" />
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"
+          />
+        </svg>
+      </div>
+
+      <span
+        class="rounded-full bg-info/10 px-2 py-1 text-[9px] font-bold uppercase tracking-wider text-info"
+      >
+        Usuarios
+      </span>
+    </div>
+
+    <p class="mt-4 text-2xl font-bold text-base-content">{{ usersLength() }}</p>
+
+    <p class="mt-1 text-xs text-base-content/45">Usuarios registrados</p>
+  </div>
+
+  <!-- ACTIVITY -->
+  <div
+    class="group rounded-2xl border border-warning/15 bg-base-100 p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-warning/30 hover:shadow-md"
+  >
+    <div class="flex items-start justify-between">
+      <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-warning/10 text-warning">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 2" />
+
+          <circle cx="12" cy="12" r="9" />
+        </svg>
+      </div>
+
+      <span
+        class="rounded-full bg-warning/10 px-2 py-1 text-[9px] font-bold uppercase tracking-wider text-warning"
+      >
+        Actividad
+      </span>
+    </div>
+
+    <p class="mt-4 text-2xl font-bold text-base-content">{{ auditLogsLength() }}</p>
+
+    <p class="mt-1 text-xs text-base-content/45">Acciones registradas</p>
+  </div>
+</section>

@@ -1,0 +1,18 @@
+<span
+  class="badge badge-sm gap-1.5 border font-semibold"
+  [class.bg-info/15]="ticketStatus() === 'OPEN'"
+  [class.text-info]="ticketStatus() === 'OPEN'"
+  [class.border-info/30]="ticketStatus() === 'OPEN'"
+  [class.bg-warning/15]="ticketStatus() === 'IN_PROGRESS'"
+  [class.text-warning]="ticketStatus() === 'IN_PROGRESS'"
+  [class.border-warning/30]="ticketStatus() === 'IN_PROGRESS'"
+  [class.bg-secondary/15]="ticketStatus() === 'PENDING'"
+  [class.text-secondary]="ticketStatus() === 'PENDING'"
+  [class.border-secondary/30]="ticketStatus() === 'PENDING'"
+  [class.bg-success/15]="ticketStatus() === 'CLOSED'"
+  [class.text-success]="ticketStatus() === 'CLOSED'"
+  [class.border-success/30]="ticketStatus() === 'CLOSED'"
+>
+  <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
+  {{ ticketStatus() }}
+</span>

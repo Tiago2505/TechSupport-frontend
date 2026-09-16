@@ -1,0 +1,18 @@
+<span
+  class="badge badge-sm gap-1.5 border font-semibold"
+  [class.bg-success/15]="ticketPriority() === 'LOW'"
+  [class.text-success]="ticketPriority() === 'LOW'"
+  [class.border-success/30]="ticketPriority() === 'LOW'"
+  [class.bg-info/15]="ticketPriority() === 'MEDIUM'"
+  [class.text-info]="ticketPriority() === 'MEDIUM'"
+  [class.border-info/30]="ticketPriority() === 'MEDIUM'"
+  [class.bg-warning/15]="ticketPriority() === 'HIGH'"
+  [class.text-warning]="ticketPriority() === 'HIGH'"
+  [class.border-warning/30]="ticketPriority() === 'HIGH'"
+  [class.bg-error/15]="ticketPriority() === 'CRITICAL'"
+  [class.text-error]="ticketPriority() === 'CRITICAL'"
+  [class.border-error/30]="ticketPriority() === 'CRITICAL'"
+>
+  <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
+  {{ ticketPriority() }}
+</span>

@@ -1,0 +1,356 @@
+<div class="w-full flex fixed top-0 justify-center items-center z-9999">
+  @if (showMessage() && ticketCreated()) {
+    <success-message
+      messageTitle="Ticket created successfully!"
+      messageContent="
+        Your support request has been successfully registered.
+      "
+    />
+  } @else if (showMessage() && !ticketCreated()) {
+    <error-message
+      messageTitle="Failed to create ticket"
+      messageContent="We could not register your support request. Please try again later."
+    />
+  }
+</div>
+
+@if (createTicketRxResource.isLoading()) {
+  <is-loading />
+}
+
+<div class="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
+  <!-- HEADER -->
+  <ticket-information-section-header />
+
+  <form class="space-y-5" [formGroup]="createTicketForm">
+    <!-- ====================================================== -->
+    <!-- PROBLEM -->
+    <!-- ====================================================== -->
+
+    <section class="rounded-2xl border border-base-300 bg-base-100 p-5 shadow-sm sm:p-6">
+      <!-- SECTION HEADER -->
+      <form-section-header />
+
+      <div class="space-y-4">
+        <!-- TITLE -->
+        <div class="form-control">
+          <label for="title" class="label">
+            <span class="label-text font-medium"> Título </span>
+
+            <span class="text-xs"> Requerido </span>
+          </label>
+
+          <input
+            id="title"
+            type="text"
+            placeholder="Ej. Mi computadora no enciende"
+            class="input input-bordered w-full rounded-xl bg-base-200/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            formControlName="title"
+          />
+          @if (createTicketForm.get('title')?.errors && createTicketForm.get('title')?.touched) {
+            <span class="text-sm text-error">{{
+              getErrorMessage(createTicketForm.get('title')!, 'title')
+            }}</span>
+          }
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="form-control">
+          <label for="description" class="label">
+            <span class="label-text font-medium"> Descripción </span>
+
+            <span class="text-xs"> Requerido </span>
+          </label>
+
+          <textarea
+            id="description"
+            rows="5"
+            placeholder="Describe detalladamente el problema, qué estabas haciendo cuando ocurrió y cualquier mensaje de error que hayas visto..."
+            class="textarea textarea-bordered w-full resize-none rounded-xl bg-base-200/30 leading-6 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            formControlName="description"
+          ></textarea>
+
+          @if (createTicketForm.get('description')?.errors && createTicketForm.get('description')?.touched) {
+            <span class="text-sm text-error">{{
+              getErrorMessage(createTicketForm.get('description')!, 'description')
+            }}</span>
+            }
+          <label class="label flex flex-col pt-1">
+            <span class="label-text-alt text-base-content/40">
+              Proporciona todos los detalles que puedan ayudar a resolver el problema.
+            </span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- IMAGES -->
+    <!-- ====================================================== -->
+
+    <section class="rounded-2xl border border-base-300 bg-base-100 p-5 shadow-sm sm:p-6">
+      <!-- SECTION HEADER -->
+      <ticket-images-section-header />
+
+      <image-grid
+        [currentImagesInput]="[]"
+        (shareManyImages)="manyImages.set($event)"
+        (shareNewFilteredImages)="images.set($event)"
+      />
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- TICKET CONFIGURATION -->
+    <!-- ====================================================== -->
+
+    <section class="rounded-2xl border border-base-300 bg-base-100 p-5 shadow-sm sm:p-6">
+      <!-- SECTION HEADER -->
+      <ticket-configuration-section-header />
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <!-- PRIORITY -->
+        <div class="form-control">
+          <label for="priority" class="label">
+            <span class="label-text font-medium"> Prioridad </span>
+
+            <span class="text-xs text-base-content/40"> Opcional </span>
+          </label>
+
+          <select
+            id="priority"
+            class="select select-bordered w-full rounded-xl bg-base-100 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            formControlName="priority"
+          >
+
+            <option value="LOW">Baja</option>
+
+            <option value="MEDIUM">Media</option>
+
+            <option value="HIGH">Alta</option>
+
+            <option value="CRITICAL">Crítica</option>
+          </select>
+        </div>
+
+        <!-- CATEGORY -->
+        <div class="form-control">
+          <label for="categoryTicket" class="label">
+            <span class="label-text font-medium"> Categoría </span>
+
+            <span class="text-xs text-base-content/40"> Opcional </span>
+          </label>
+
+          <select
+            id="categoryTicket"
+            class="select select-bordered w-full rounded-xl bg-base-100 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            formControlName="categoryTicket"
+          >
+
+            <option value="SOFTWARE">Software</option>
+
+            <option value="HARDWARE">Hardware</option>
+
+            <option value="NETWORK">Red</option>
+
+            <option value="OPERATING_SYSTEM">Sistema operativo</option>
+
+            <option value="PRINTERS">Impresoras</option>
+
+            <option value="SECURITY">Seguridad</option>
+
+            <option value="OTHER">Otro</option>
+          </select>
+        </div>
+
+        <!-- STATUS -->
+        <div class="form-control sm:col-span-2">
+          <label for="status" class="label">
+            <span class="label-text font-medium"> Estado </span>
+
+            <span class="text-xs text-base-content/40"> Opcional </span>
+          </label>
+
+          <select
+            id="status"
+            class="select select-bordered w-full rounded-xl bg-base-100 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            formControlName="status"
+          >
+            <option value="OPEN">Abierto</option>
+
+            <option value="IN_PROGRESS">En progreso</option>
+
+            <option value="PENDING">Pendiente</option>
+
+            <option value="RESOLVED">Resuelto</option>
+
+            <option value="CLOSED">Cerrado</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- DEVICE -->
+    <!-- ====================================================== -->
+
+    <section class="rounded-2xl border border-base-300 bg-base-100 p-5 shadow-sm sm:p-6">
+      <!-- SECTION HEADER -->
+      <ticket-device-information-section-header />
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <!-- DEVICE TYPE -->
+        <div class="form-control sm:col-span-2">
+          <label for="deviceType" class="label">
+            <span class="label-text font-medium"> Tipo de dispositivo </span>
+
+            <span class="text-xs text-base-content/40"> Opcional </span>
+          </label>
+
+          <select
+            id="deviceType"
+            class="select select-bordered w-full rounded-xl bg-base-100 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            formControlName="deviceType"
+          >
+            <option value="LAPTOP">Laptop</option>
+
+            <option value="DESKTOP">Computadora de escritorio</option>
+
+            <option value="PRINTER">Impresora</option>
+
+            <option value="MONITOR">Monitor</option>
+
+            <option value="PHONE">Teléfono</option>
+
+            <option value="TABLET">Tablet</option>
+
+            <option value="SERVER">Servidor</option>
+
+            <option value="NETWORK_DEVICE">Dispositivo de red</option>
+
+            <option value="OTHER">Otro</option>
+          </select>
+        </div>
+
+        <!-- BRAND -->
+        <div class="form-control">
+          <label for="deviceBrand" class="label">
+            <span class="label-text font-medium"> Marca </span>
+
+            <span class="text-xs text-base-content/40"> Opcional </span>
+          </label>
+
+          <input
+            id="deviceBrand"
+            type="text"
+            placeholder="Ej. HP, Dell, Lenovo"
+            class="input input-bordered w-full rounded-xl bg-base-200/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            formControlName="deviceBrand"
+          />
+        </div>
+
+        <!-- MODEL -->
+        <div class="form-control">
+          <label for="deviceModel" class="label">
+            <span class="label-text font-medium"> Modelo </span>
+
+            <span class="text-xs text-base-content/40"> Opcional </span>
+          </label>
+
+          <input
+            id="deviceModel"
+            type="text"
+            placeholder="Ej. Latitude 5420"
+            class="input input-bordered w-full rounded-xl bg-base-200/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            formControlName="deviceModel"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- ADDITIONAL INFORMATION -->
+    <!-- ====================================================== -->
+
+    <section class="rounded-2xl border border-base-300 bg-base-100 p-5 shadow-sm sm:p-6">
+      <!-- SECTION HEADER -->
+      <ticket-additional-information-section-header />
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <!-- OPERATING SYSTEM -->
+        <div class="form-control">
+          <label for="operatingSystem" class="label">
+            <span class="label-text font-medium"> Sistema operativo </span>
+
+            <span class="text-xs text-base-content/40"> Opcional </span>
+          </label>
+
+          <select
+            id="operatingSystem"
+            class="select select-bordered w-full rounded-xl bg-base-100 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            formControlName="operatingSystem"
+          >
+
+            <option value="WINDOWS">Windows</option>
+
+            <option value="MACOS">macOS</option>
+
+            <option value="LINUX">Linux</option>
+
+            <option value="ANDROID">Android</option>
+
+            <option value="IOS">iOS</option>
+
+            <option value="CHROME_OS">Chrome OS</option>
+
+            <option value="OTHER">Otro</option>
+          </select>
+        </div>
+
+        <!-- TECHNICIAN -->
+        <div class="form-control">
+          <label for="technicianId" class="label">
+            <span class="label-text font-medium"> Técnico asignado </span>
+
+            <span class="text-xs text-base-content/40"> Opcional </span>
+          </label>
+
+          <select
+            id="technicianId"
+            class="select select-bordered w-full rounded-xl bg-base-100 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            formControlName="technicianId"
+          >
+            <option value="" selected>Selecciona un técnico</option>
+
+            @for (user of allUsers(); track user.id) {
+              @if (user.role === 'TECHNICIAN') {
+                <option [value]="user.id">
+                  {{ user.fullname }}
+                </option>
+              }
+            }
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- ACTIONS -->
+    <!-- ====================================================== -->
+
+    <div
+      class="flex flex-col-reverse gap-3 border-t border-base-300 pt-5 sm:flex-row sm:justify-end"
+    >
+      <button type="button" class="btn btn-ghost rounded-xl">Cancelar</button>
+
+      <button
+        type="button"
+        class="btn btn-primary rounded-xl px-6 shadow-sm shadow-primary/20"
+        (click)="createTicketButton()"
+      >
+        <create-ticket-button-icon />
+
+        Crear ticket
+      </button>
+    </div>
+  </form>
+</div>

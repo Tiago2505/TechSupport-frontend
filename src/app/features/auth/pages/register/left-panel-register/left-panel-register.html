@@ -1,0 +1,145 @@
+<div
+  class="order-2 flex w-full flex-col bg-primary p-6 text-primary-content lg:order-1 lg:h-full lg:justify-between lg:p-8"
+>
+  <!-- CONTENIDO -->
+  <div>
+    <!-- ICONO + TÍTULO -->
+    <div class="flex items-center gap-4">
+      <!-- ICONO -->
+      <div
+        class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-content/10"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
+          <!-- Persona -->
+          <circle cx="9" cy="8" r="3" />
+
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.5 19.5a5.5 5.5 0 0111 0" />
+
+          <!-- Signo + -->
+          <path stroke-linecap="round" stroke-linejoin="round" d="M18 12v6m-3-3h6" />
+        </svg>
+      </div>
+
+      <!-- TEXTO -->
+      <div>
+        <h1 class="text-2xl font-bold lg:text-3xl">Crea tu cuenta</h1>
+
+        <p class="mt-1 text-xs text-primary-content/70 lg:text-sm">Regístrate en Tech Support.</p>
+      </div>
+    </div>
+
+    <!-- ====================================================== -->
+    <!-- REQUISITOS -->
+    <!-- ====================================================== -->
+
+    <div
+      class="mt-5 rounded-2xl border border-primary-content/10 bg-primary-content/10 p-4 backdrop-blur-sm lg:mt-8 lg:p-5"
+    >
+      <!-- ENCABEZADO -->
+      <div class="mb-4 flex items-center gap-3">
+        <div
+          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary-content/15"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </div>
+
+        <div>
+          <p class="text-sm font-semibold">Requisitos de seguridad</p>
+
+          <p class="text-xs text-primary-content/60">Tu contraseña debe cumplir con:</p>
+        </div>
+      </div>
+
+      <!-- LISTA -->
+      <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-1 lg:gap-3">
+        <!-- 8 CARACTERES -->
+        <div
+          class="flex items-center gap-3 rounded-xl bg-primary-content/5 px-3 py-2 text-xs transition hover:bg-primary-content/10 lg:py-2.5 lg:text-sm"
+        >
+          <span
+            class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-content/10 text-xs font-bold"
+          >
+            ✓
+          </span>
+
+          <span> Al menos 8 caracteres </span>
+        </div>
+
+        <!-- MAYÚSCULA -->
+        <div
+          class="flex items-center gap-3 rounded-xl bg-primary-content/5 px-3 py-2 text-xs transition hover:bg-primary-content/10 lg:py-2.5 lg:text-sm"
+        >
+          <span
+            class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-content/10 text-xs font-bold"
+          >
+            ✓
+          </span>
+
+          <span> Una letra mayúscula </span>
+        </div>
+
+        <!-- MINÚSCULA -->
+        <div
+          class="flex items-center gap-3 rounded-xl bg-primary-content/5 px-3 py-2 text-xs transition hover:bg-primary-content/10 lg:py-2.5 lg:text-sm"
+        >
+          <span
+            class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-content/10 text-xs font-bold"
+          >
+            ✓
+          </span>
+
+          <span> Una letra minúscula </span>
+        </div>
+
+        <!-- NÚMERO -->
+        <div
+          class="flex items-center gap-3 rounded-xl bg-primary-content/5 px-3 py-2 text-xs transition hover:bg-primary-content/10 lg:py-2.5 lg:text-sm"
+        >
+          <span
+            class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-content/10 text-xs font-bold"
+          >
+            ✓
+          </span>
+
+          <span> Al menos un número </span>
+        </div>
+
+        <!-- CARÁCTER ESPECIAL -->
+        <div
+          class="flex items-center gap-3 rounded-xl bg-primary-content/5 px-3 py-2 text-xs transition hover:bg-primary-content/10 lg:py-2.5 lg:text-sm"
+        >
+          <span
+            class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-content/10 text-xs font-bold"
+          >
+            ✓
+          </span>
+
+          <span> Al menos un carácter especial </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <p class="mt-5 hidden text-xs text-primary-content/50 lg:block">© 2026 Tech Support</p>
+</div>

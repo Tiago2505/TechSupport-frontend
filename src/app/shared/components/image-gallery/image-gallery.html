@@ -1,0 +1,186 @@
+  <!-- GALERÍA DE EVIDENCIAS -->
+  <div class="border-b border-base-300 bg-base-200/40 p-4 sm:p-5">
+    <!-- HEADER -->
+    <div class="mb-4 flex items-center justify-between">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-base-content/50">
+          Evidencias
+        </p>
+
+        <p class="mt-0.5 text-xs text-base-content/40">
+          {{ images().length }} {{ images().length === 1 ? 'imagen' : 'imágenes' }}
+        </p>
+      </div>
+
+      <div class="flex items-center gap-1.5">
+        <button
+          type="button"
+          class="btn btn-circle btn-sm border border-base-300 bg-base-100 shadow-sm transition-all hover:border-primary hover:bg-primary hover:text-primary-content"
+          (click)="previousImage()"
+          aria-label="Imagen anterior"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-circle btn-sm border border-base-300 bg-base-100 shadow-sm transition-all hover:border-primary hover:bg-primary hover:text-primary-content"
+          (click)="nextImage()"
+          aria-label="Siguiente imagen"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- IMAGEN PRINCIPAL -->
+    <div
+      class="group relative overflow-hidden rounded-2xl border border-base-300 bg-base-100 shadow-sm"
+      (touchstart)="onTouchStart($event)"
+      (touchend)="onTouchEnd($event)"
+    >
+      <div class="aspect-video w-full">
+        <img
+          [src]="images()[currentImage()].secureUrl"
+          [alt]="'Evidencia ' + (currentImage() + 1) + ' del ticket'"
+          class="h-full w-full object-cover transition-all duration-300"
+        />
+      </div>
+
+      <!-- OVERLAY -->
+      <div
+        class="absolute inset-x-0 bottom-0 flex items-end justify-between bg-linear-to-t from-black/70 via-black/20 to-transparent p-4 pt-12"
+      >
+        <div>
+          <p class="text-sm font-semibold text-white">Evidencia {{ currentImage() + 1 }}</p>
+
+          <p class="text-xs text-white/70">
+            Imagen {{ currentImage() + 1 }} de {{ images().length }}
+          </p>
+        </div>
+
+        <span
+          class="rounded-full bg-black/40 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm"
+        >
+          {{ currentImage() + 1 }} / {{ images().length }}
+        </span>
+      </div>
+
+      <!-- FLECHA IZQUIERDA -->
+      <button
+        type="button"
+        class="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white opacity-90 shadow-lg backdrop-blur-sm transition-all hover:scale-105 hover:bg-black/65 sm:h-10 sm:w-10"
+        (click)="previousImage()"
+        aria-label="Imagen anterior"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <!-- FLECHA DERECHA -->
+      <button
+        type="button"
+        class="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white opacity-90 shadow-lg backdrop-blur-sm transition-all hover:scale-105 hover:bg-black/65 sm:h-10 sm:w-10"
+        (click)="nextImage()"
+        aria-label="Siguiente imagen"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- MINIATURAS -->
+    <div class="mt-3 grid grid-cols-3 gap-2">
+      @for (image of images(); track $index) {
+        <button
+          type="button"
+          class="group relative aspect-video overflow-hidden rounded-xl border-2 transition-all duration-200"
+          [class.border-primary]="currentImage() === $index"
+          [class.border-base-300]="currentImage() !== $index"
+          [class.opacity-60]="currentImage() !== $index"
+          [class.opacity-100]="currentImage() === $index"
+          (click)="selectImage($index)"
+        >
+          <img
+            [src]="image.secureUrl"
+            [alt]="'Miniatura ' + ($index + 1)"
+            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+
+          @if (currentImage() === $index) {
+            <div class="absolute inset-0 bg-primary/10"></div>
+
+            <div
+              class="absolute right-1.5 top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-content shadow-sm"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-3 w-3"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="3"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+          }
+        </button>
+      }
+    </div>
+
+    <!-- INDICADORES -->
+    <div class="mt-3 flex items-center justify-center gap-1.5">
+      @for (image of images(); track $index) {
+        <button
+          type="button"
+          class="h-1.5 rounded-full transition-all duration-300"
+          [class.w-6]="currentImage() === $index"
+          [class.w-1.5]="currentImage() !== $index"
+          [class.bg-primary]="currentImage() === $index"
+          [class.bg-base-content/20]="currentImage() !== $index"
+          (click)="selectImage($index)"
+          [attr.aria-label]="'Ir a imagen ' + ($index + 1)"
+        ></button>
+      }
+    </div>
+
+    <!-- AYUDA -->
+    <p class="mt-3 text-center text-[11px] text-base-content/40">
+      Usa las flechas o desliza la imagen para navegar
+    </p>
+  </div>

@@ -1,0 +1,185 @@
+<section class="relative overflow-hidden">
+  <!-- HERO -->
+  <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+    <div class="mx-auto max-w-4xl text-center">
+      <div
+        class="mx-auto mb-7 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-primary-content shadow-lg"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-8 w-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12M6 12h12" />
+        </svg>
+      </div>
+
+      <p class="text-sm font-semibold text-primary">TECH SUPPORT</p>
+
+      <h2 class="mt-3 text-4xl font-bold tracking-tight text-base-content sm:text-5xl lg:text-6xl">
+        Soporte técnico
+        <span class="text-primary"> inteligente </span>
+      </h2>
+
+      <p class="mx-auto mt-6 max-w-2xl text-base leading-7 text-base-content/60 sm:text-lg">
+        Una plataforma diseñada para gestionar tus solicitudes de soporte, dar seguimiento a tus
+        gestiones y obtener asistencia de forma rápida y sencilla.
+      </p>
+
+      <div class="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+        <button type="button" class="btn btn-primary rounded-xl px-7" (click)="goToLogin()">Iniciar sesión</button>
+
+        <button type="button" class="btn btn-outline rounded-xl px-7" (click)="goToRegister()">Crear cuenta</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================== -->
+  <!-- CARACTERÍSTICAS -->
+  <!-- ================================================== -->
+
+  <div class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+    <div class="grid gap-5 md:grid-cols-3">
+      <div class="rounded-2xl border border-base-300 bg-base-100 p-6 text-center shadow-sm">
+        <div
+          class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5.25h6M9 9.75h6M9 14.25h3" />
+
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6.75 3h10.5A2.25 2.25 0 0119.5 5.25v13.5A2.25 2.25 0 0117.25 21H6.75a2.25 2.25 0 01-2.25-2.25V5.25A2.25 2.25 0 016.75 3z"
+            />
+          </svg>
+        </div>
+
+        <h3 class="mt-4 font-bold text-base-content">Gestiona solicitudes</h3>
+
+        <p class="mt-2 text-sm leading-6 text-base-content/60">
+          Crea y consulta tus gestiones de soporte desde un solo lugar.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-base-300 bg-base-100 p-6 text-center shadow-sm">
+        <div
+          class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2" />
+
+            <circle cx="12" cy="12" r="9" />
+          </svg>
+        </div>
+
+        <h3 class="mt-4 font-bold text-base-content">Seguimiento en tiempo real</h3>
+
+        <p class="mt-2 text-sm leading-6 text-base-content/60">
+          Mantente informado sobre el estado de tus solicitudes.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-base-300 bg-base-100 p-6 text-center shadow-sm">
+        <div
+          class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 3v2.25M12 18.75V21M4.72 4.72l1.59 1.59M17.69 17.69l1.59 1.59M3 12h2.25M18.75 12H21"
+            />
+
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+            />
+          </svg>
+        </div>
+
+        <h3 class="mt-4 font-bold text-base-content">Asistencia inteligente</h3>
+
+        <p class="mt-2 text-sm leading-6 text-base-content/60">
+          Obtén orientación rápida mediante nuestro asistente inteligente.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<!-- INFORMACIÓN -->
+<!-- ================================================== -->
+
+<section class="border-t border-base-300 bg-base-100">
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+      <div>
+        <p class="text-sm font-semibold text-primary">UNA MEJOR EXPERIENCIA</p>
+
+        <h3 class="mt-2 text-3xl font-bold text-base-content">
+          Tu soporte, más simple y organizado
+        </h3>
+
+        <p class="mt-4 text-sm leading-7 text-base-content/60 sm:text-base">
+          Tech Support centraliza tus solicitudes y te permite mantener un mejor control sobre cada
+          gestión. Desde la creación de una solicitud hasta su resolución, tendrás la información
+          que necesitas en un solo lugar.
+        </p>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="rounded-2xl border border-base-300 bg-base-200/50 p-5">
+          <h4 class="font-bold text-base-content">Fácil de usar</h4>
+
+          <p class="mt-2 text-sm leading-6 text-base-content/60">
+            Una interfaz sencilla pensada para que puedas encontrar rápidamente lo que necesitas.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-base-300 bg-base-200/50 p-5">
+          <h4 class="font-bold text-base-content">Todo centralizado</h4>
+
+          <p class="mt-2 text-sm leading-6 text-base-content/60">
+            Solicitudes, seguimiento y asistencia desde una misma plataforma.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER PÚBLICO -->
+<footer class="border-t border-base-300 bg-base-200">
+  <div class="mx-auto max-w-7xl px-4 py-8 text-center sm:px-6 lg:px-8">
+    <p class="text-sm font-semibold text-base-content">Tech Support</p>
+
+    <p class="mt-1 text-xs text-base-content/40">Plataforma de soporte técnico inteligente</p>
+  </div>
+</footer>

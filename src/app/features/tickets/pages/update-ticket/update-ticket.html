@@ -1,0 +1,394 @@
+<div class="fixed inset-x-0 top-4 z-[9999] flex justify-center px-4">
+  @if (ticketUpdated() && showMessage()) {
+    <div class="w-full max-w-md">
+      <success-message
+        [messageTitle]="'Ticket updated successfully!'"
+        [messageContent]="'The ticket changes have been saved successfully.'"
+      />
+    </div>
+  } @else if (!ticketUpdated() && showMessage()) {
+    <div class="w-full max-w-md">
+      <error-message
+        [messageTitle]="'Unable to update ticket'"
+        [messageContent]="'An error occurred while saving the changes. Please try again.'"
+      />
+    </div>
+  }
+</div>
+
+@if (updateTicketDtoRxResource.isLoading()) {
+  <is-loading />
+}
+
+<div class="min-h-screen bg-base-200/40">
+  <div class="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
+    <!-- HEADER -->
+    <div class="mb-6">
+      <update-ticket-form-header />
+    </div>
+
+    <!-- FORMULARIO -->
+    <form class="space-y-5" [formGroup]="updateTicketForm">
+      <!-- ====================================================== -->
+      <!-- INFORMACIÓN GENERAL -->
+      <!-- ====================================================== -->
+
+      <section class="overflow-hidden rounded-2xl border border-base-300 bg-base-100 shadow-sm">
+        <div class="p-5 sm:p-6">
+          <general-information-section-header />
+
+          <div class="mt-5 space-y-5">
+            <!-- TITLE -->
+            <div class="form-control">
+              <label for="title" class="label px-0">
+                <span class="label-text font-semibold text-base-content"> Título </span>
+
+                <span class="text-xs font-medium text-base-content/40"> Requerido </span>
+              </label>
+
+              <input
+                id="title"
+                type="text"
+                placeholder="Ej. Mi computadora no enciende"
+                class="input input-bordered h-12 w-full rounded-xl bg-base-200/30 px-4 text-sm transition-all duration-200 placeholder:text-base-content/30 focus:border-primary focus:bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                formControlName="title"
+              />
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="form-control">
+              <label for="description" class="label px-0">
+                <span class="label-text font-semibold text-base-content"> Descripción </span>
+
+                <span class="text-xs font-medium text-base-content/40"> Requerido </span>
+              </label>
+
+              <textarea
+                id="description"
+                rows="5"
+                placeholder="Describe detalladamente el problema, qué estabas haciendo cuando ocurrió y cualquier mensaje de error que hayas visto..."
+                class="textarea textarea-bordered min-h-32 w-full resize-none rounded-xl bg-base-200/30 px-4 py-3 text-sm leading-6 transition-all duration-200 placeholder:text-base-content/30 focus:border-primary focus:bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                formControlName="description"
+              ></textarea>
+
+              <div class="mt-2 flex items-start gap-2 px-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="mt-0.5 h-3.5 w-3.5 shrink-0 text-base-content/30"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M13 16h-1v-4h-1m1-4h.01M12 21a9 9 0 100-18 9 9 0 000 18z"
+                  />
+                </svg>
+
+                <span class="text-xs leading-5 text-base-content/40">
+                  Proporciona todos los detalles que puedan ayudar a resolver el problema.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- EVIDENCIAS -->
+      <!-- ====================================================== -->
+
+      <section class="overflow-hidden rounded-2xl border border-base-300 bg-base-100 shadow-sm">
+        <div class="p-5 sm:p-6">
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div class="flex items-start gap-3">
+              <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+              </div>
+
+              <div>
+                <h3 class="text-base font-semibold text-base-content">Evidencias</h3>
+
+                <p class="mt-0.5 text-sm text-base-content/45">
+                  Administra las imágenes asociadas a esta gestión.
+                </p>
+              </div>
+            </div>
+
+            <div class="inline-flex w-fit items-center rounded-lg bg-base-200/70 px-3 py-1.5">
+              <span class="text-xs font-medium text-base-content/45"> Imágenes del ticket </span>
+            </div>
+          </div>
+
+          <div class="mt-5 rounded-xl border border-base-300/70 bg-base-200/20 p-3 sm:p-4">
+            <image-grid
+              [currentImagesInput]="ticketInformation()!.evidence ?? []"
+              (shareManyImages)="manyImages.set($event)"
+              (shareNewFilteredImages)="newImages.set($event)"
+              (shareCurrentDeletedImages)="deletedCurrentImages.set($event)"
+              (shareCurrentFilteredImages)="currentImages.set($event)"
+            />
+          </div>
+
+          <div class="mt-3 flex items-start gap-2 px-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-base-content/30"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M13 16h-1v-4h-1m1-4h.01M12 21a9 9 0 100-18 9 9 0 000 18z"
+              />
+            </svg>
+
+            <p class="text-xs leading-5 text-base-content/40">
+              Puedes conservar, eliminar o agregar evidencias para mantener actualizado el
+              diagnóstico de la gestión.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- CONFIGURACIÓN -->
+      <!-- ====================================================== -->
+
+      <section class="overflow-hidden rounded-2xl border border-base-300 bg-base-100 shadow-sm">
+        <div class="p-5 sm:p-6">
+          <ticket-configuration-section-header />
+
+          <div class="mt-5 grid gap-4 sm:grid-cols-2">
+            <!-- PRIORITY -->
+            <div class="form-control">
+              <label for="priority" class="label px-0">
+                <span class="label-text font-semibold"> Prioridad </span>
+
+                <span class="text-xs font-medium text-base-content/40"> Opcional </span>
+              </label>
+
+              <select
+                id="priority"
+                class="select select-bordered h-12 w-full rounded-xl bg-base-100 text-sm transition-all duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                formControlName="priority"
+              >
+                <option value="LOW">Baja</option>
+                <option value="MEDIUM">Media</option>
+                <option value="HIGH">Alta</option>
+                <option value="CRITICAL">Crítica</option>
+              </select>
+            </div>
+
+            <!-- CATEGORY -->
+            <div class="form-control">
+              <label for="categoryTicket" class="label px-0">
+                <span class="label-text font-semibold"> Categoría </span>
+
+                <span class="text-xs font-medium text-base-content/40"> Opcional </span>
+              </label>
+
+              <select
+                id="categoryTicket"
+                class="select select-bordered h-12 w-full rounded-xl bg-base-100 text-sm transition-all duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                formControlName="categoryTicket"
+              >
+                <option value="SOFTWARE">Software</option>
+                <option value="HARDWARE">Hardware</option>
+                <option value="NETWORK">Red</option>
+                <option value="OPERATING_SYSTEM">Sistema operativo</option>
+                <option value="PRINTERS">Impresoras</option>
+                <option value="SECURITY">Seguridad</option>
+                <option value="OTHER">Otro</option>
+              </select>
+            </div>
+
+            <!-- STATUS -->
+            <div class="form-control sm:col-span-2">
+              <label for="status" class="label px-0">
+                <span class="label-text font-semibold"> Estado </span>
+
+                <span class="text-xs font-medium text-base-content/40"> Opcional </span>
+              </label>
+
+              <select
+                id="status"
+                class="select select-bordered h-12 w-full rounded-xl bg-base-100 text-sm transition-all duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                formControlName="status"
+              >
+                <option value="OPEN">Abierto</option>
+                <option value="IN_PROGRESS">En progreso</option>
+                <option value="PENDING">Pendiente</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- DISPOSITIVO -->
+      <!-- ====================================================== -->
+
+      <section class="overflow-hidden rounded-2xl border border-base-300 bg-base-100 shadow-sm">
+        <div class="p-5 sm:p-6">
+          <device-information-section-header />
+
+          <div class="mt-5 grid gap-4 sm:grid-cols-2">
+            <!-- DEVICE TYPE -->
+            <div class="form-control sm:col-span-2">
+              <label for="deviceType" class="label px-0">
+                <span class="label-text font-semibold"> Tipo de dispositivo </span>
+
+                <span class="text-xs font-medium text-base-content/40"> Opcional </span>
+              </label>
+
+              <select
+                id="deviceType"
+                class="select select-bordered h-12 w-full rounded-xl bg-base-100 text-sm transition-all duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                formControlName="deviceType"
+              >
+                <option value="LAPTOP">Laptop</option>
+                <option value="DESKTOP">Computadora de escritorio</option>
+                <option value="PRINTER">Impresora</option>
+                <option value="MONITOR">Monitor</option>
+                <option value="PHONE">Teléfono</option>
+                <option value="TABLET">Tablet</option>
+                <option value="SERVER">Servidor</option>
+                <option value="NETWORK_DEVICE">Dispositivo de red</option>
+                <option value="OTHER">Otro</option>
+              </select>
+            </div>
+
+            <!-- BRAND -->
+            <div class="form-control">
+              <label for="deviceBrand" class="label px-0">
+                <span class="label-text font-semibold"> Marca </span>
+
+                <span class="text-xs font-medium text-base-content/40"> Opcional </span>
+              </label>
+
+              <input
+                id="deviceBrand"
+                type="text"
+                placeholder="Ej. HP, Dell, Lenovo"
+                class="input input-bordered h-12 w-full rounded-xl bg-base-200/30 px-4 text-sm transition-all duration-200 placeholder:text-base-content/30 focus:border-primary focus:bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                formControlName="deviceBrand"
+              />
+            </div>
+
+            <!-- MODEL -->
+            <div class="form-control">
+              <label for="deviceModel" class="label px-0">
+                <span class="label-text font-semibold"> Modelo </span>
+
+                <span class="text-xs font-medium text-base-content/40"> Opcional </span>
+              </label>
+
+              <input
+                id="deviceModel"
+                type="text"
+                placeholder="Ej. Latitude 5420"
+                class="input input-bordered h-12 w-full rounded-xl bg-base-200/30 px-4 text-sm transition-all duration-200 placeholder:text-base-content/30 focus:border-primary focus:bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                formControlName="deviceModel"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- INFORMACIÓN ADICIONAL -->
+      <!-- ====================================================== -->
+
+      <section class="overflow-hidden rounded-2xl border border-base-300 bg-base-100 shadow-sm">
+        <div class="p-5 sm:p-6">
+          <additional-information-section-header />
+
+          <div class="mt-5 grid gap-4 sm:grid-cols-2">
+            <!-- OPERATING SYSTEM -->
+            <div class="form-control">
+              <label for="operatingSystem" class="label px-0">
+                <span class="label-text font-semibold"> Sistema operativo </span>
+
+                <span class="text-xs font-medium text-base-content/40"> Opcional </span>
+              </label>
+
+              <select
+                id="operatingSystem"
+                class="select select-bordered h-12 w-full rounded-xl bg-base-100 text-sm transition-all duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                formControlName="operatingSystem"
+              >
+                <option value="WINDOWS">Windows</option>
+                <option value="MACOS">macOS</option>
+                <option value="LINUX">Linux</option>
+                <option value="ANDROID">Android</option>
+                <option value="IOS">iOS</option>
+                <option value="CHROME_OS">Chrome OS</option>
+                <option value="OTHER">Otro</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- ACTIONS -->
+      <!-- ====================================================== -->
+
+      <div class="pt-2">
+        <div
+          class="flex flex-col-reverse gap-3 rounded-2xl border border-base-300 bg-base-100 p-4 shadow-sm sm:flex-row sm:items-center sm:justify-end sm:p-5"
+        >
+          <button
+            type="button"
+            class="btn btn-ghost rounded-xl px-5 text-base-content/60 transition-all duration-200 hover:bg-base-200 hover:text-base-content"
+            (click)="goToTickets()"
+          >
+            Cancelar
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary gap-2 rounded-xl px-6 shadow-sm shadow-primary/20 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:shadow-primary/25"
+            (click)="updateTicketButton()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 6l6 6-6 6" />
+            </svg>
+
+            Guardar cambios
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

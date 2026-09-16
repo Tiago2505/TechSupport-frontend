@@ -1,0 +1,167 @@
+<!-- MENSAJES -->
+<div class="fixed left-0 top-4 z-50 flex w-full justify-center px-4">
+  @if (registerSuccess()) {
+    <success-message messageTitle="Account created successfully!" [messageContent]="message()" />
+  } @else if (registerRxResource.error() && registerButtonPressed()) {
+    <error-message messageTitle="Something went wrong" [messageContent]="message()" />
+  }
+</div>
+
+<!-- CONTENEDOR PRINCIPAL -->
+<div class="flex min-h-screen items-center justify-center bg-base-200 px-4 py-6">
+  <div
+    class="flex w-full max-w-4xl flex-col overflow-hidden rounded-3xl bg-base-100 shadow-2xl lg:grid lg:grid-cols-2"
+  >
+    <!-- ====================================================== -->
+    <!-- PANEL IZQUIERDO / REQUISITOS -->
+    <!-- ====================================================== -->
+
+    <left-panel-register />
+
+    <!-- ====================================================== -->
+    <!-- PANEL DERECHO / FORMULARIO -->
+    <!-- ====================================================== -->
+
+    <div class="order-1 p-6 sm:p-8 lg:order-2">
+      <!-- ENCABEZADO -->
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold text-base-content">Crear una cuenta</h2>
+
+        <p class="mt-1 text-sm text-base-content/60">Ingresa tus datos para registrarte.</p>
+      </div>
+
+      <!-- FORMULARIO -->
+      <form class="flex flex-col gap-4" [formGroup]="registerForm">
+        <!-- NOMBRE -->
+        <div class="form-control">
+          <label class="label py-1">
+            <span class="label-text font-semibold"> Nombre completo </span>
+          </label>
+
+          <label
+            class="input input-bordered flex h-12 w-full items-center gap-3 rounded-xl bg-base-200/40 transition focus-within:border-primary focus-within:bg-base-100 focus-within:ring-2 focus-within:ring-primary/20"
+          >
+            <user-icon-register />
+
+            <input
+              type="text"
+              placeholder="Nombre Apellido"
+              class="grow bg-transparent"
+              formControlName="fullname"
+            />
+          </label>
+
+          @if (registerForm.get('fullname')?.errors && registerForm.get('fullname')?.touched) {
+            <span class="text-sm text-error">
+              {{ getErrorMessage(registerForm.get('fullname')!, 'fullname') }}
+            </span>
+          }
+        </div>
+
+        <!-- CORREO -->
+        <div class="form-control">
+          <label class="label py-1">
+            <span class="label-text font-semibold"> Correo electrónico </span>
+          </label>
+
+          <label
+            class="input input-bordered flex h-12 w-full items-center gap-3 rounded-xl bg-base-200/40 transition focus-within:border-primary focus-within:bg-base-100 focus-within:ring-2 focus-within:ring-primary/20"
+          >
+            <email-icon />
+
+            <input
+              type="email"
+              placeholder="correo@ejemplo.com"
+              class="grow bg-transparent"
+              formControlName="email"
+            />
+          </label>
+
+          @if (registerForm.get('email')?.errors && registerForm.get('email')?.touched) {
+            <span class="text-sm text-error">
+              {{ getErrorMessage(registerForm.get('email')!, 'email') }}
+            </span>
+          }
+        </div>
+
+        <!-- TELÉFONO -->
+        <div class="form-control">
+          <label class="label py-1">
+            <span class="label-text font-semibold"> Teléfono </span>
+          </label>
+
+          <label
+            class="input input-bordered flex h-12 w-full items-center gap-3 rounded-xl bg-base-200/40 transition focus-within:border-primary focus-within:bg-base-100 focus-within:ring-2 focus-within:ring-primary/20"
+          >
+            <phone-icon />
+
+            <input
+              type="tel"
+              placeholder="9999-9999"
+              class="grow bg-transparent"
+              formControlName="phone"
+            />
+          </label>
+
+          @if (registerForm.get('phone')?.errors && registerForm.get('phone')?.touched) {
+            <span class="text-sm text-error">
+              {{ getErrorMessage(registerForm.get('phone')!, 'phone') }}
+            </span>
+          }
+        </div>
+
+        <!-- CONTRASEÑA -->
+        <div class="form-control">
+          <label class="label py-1">
+            <span class="label-text font-semibold"> Contraseña </span>
+          </label>
+
+          <label
+            class="input input-bordered flex h-12 w-full items-center gap-3 rounded-xl bg-base-200/40 transition focus-within:border-primary focus-within:bg-base-100 focus-within:ring-2 focus-within:ring-primary/20"
+          >
+            <password-icon />
+
+            <input
+              [type]="showPassword() ? 'text' : 'password'"
+              placeholder="••••••••"
+              class="grow bg-transparent"
+              formControlName="password"
+            />
+
+            <show-password (showPasswordOutput)="showPassword.set($event)" />
+          </label>
+
+          @if (registerForm.get('password')?.errors && registerForm.get('password')?.touched) {
+            <span class="text-sm text-error">
+              {{ getErrorMessage(registerForm.get('password')!, 'password') }}
+            </span>
+          }
+        </div>
+
+        <!-- BOTÓN -->
+        <button
+          type="button"
+          class="btn btn-primary mt-2 h-12 rounded-xl text-base font-semibold shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/25"
+          (click)="registerButton()"
+        >
+          Crear cuenta
+        </button>
+      </form>
+
+      <!-- LOGIN -->
+      <div class="mt-5 text-center">
+        <p class="text-sm text-base-content/60">
+          ¿Ya tienes una cuenta?
+
+          <button
+            type="button"
+            class="ml-1 font-semibold text-primary transition hover:underline"
+            (click)="goToLogin()"
+          >
+            Inicia sesión
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,103 @@
+<section class="overflow-hidden rounded-2xl border border-success/20 bg-base-100 shadow-sm">
+  <!-- HEADER -->
+  <div class="border-b border-success/15 bg-success/5 p-5 sm:p-6">
+    <div class="flex items-start gap-3">
+      <div
+        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-success/10 text-success"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4.5 w-4.5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4" />
+          <circle cx="12" cy="12" r="9" />
+        </svg>
+      </div>
+
+      <div class="min-w-0">
+        <div class="flex flex-wrap items-center gap-2">
+          <h2 class="text-sm font-bold text-base-content">Ticket resuelto</h2>
+
+          <span class="badge badge-success badge-sm gap-1.5">
+            <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
+            Cerrado
+          </span>
+        </div>
+
+        <p class="mt-1 text-xs leading-5 text-base-content/45">
+          Este ticket fue atendido y cerrado correctamente.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESOLUTION -->
+  <div class="p-5 sm:p-6">
+    <div class="mb-3 flex items-center justify-between gap-3">
+      <div>
+        <p class="text-[10px] font-semibold uppercase tracking-wider text-base-content/40">
+          Resolución
+        </p>
+
+        <p class="mt-1 text-xs text-base-content/45">Solución proporcionada por el técnico.</p>
+      </div>
+
+      <div
+        class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-success/10 text-success"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h5" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M19 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <div class="rounded-xl border border-base-300 bg-base-200/40 p-4 sm:p-5">
+      <p class="text-sm leading-6 text-base-content/70">
+        {{ resolution() }}
+      </p>
+    </div>
+
+    <!-- CLOSED INFO -->
+    <div class="mt-4 flex items-center gap-3 rounded-xl bg-success/5 px-3.5 py-3">
+      <div
+        class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-success/10 text-success"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75" />
+          <circle cx="12" cy="12" r="9" />
+        </svg>
+      </div>
+
+      <div>
+        <p class="text-xs font-semibold text-success">Solución completada</p>
+
+        <p class="mt-0.5 text-[10px] text-base-content/45">
+          El ticket ya no requiere acciones adicionales.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,231 @@
+<div class="fixed inset-x-0 top-0 z-9999 flex justify-center px-4 pt-4">
+  @if (ticketDeleted() && showMessage()) {
+    <success-message
+      [messageTitle]="'Ticket deleted successfully!'"
+      [messageContent]="'The ticket has been deleted successfully.'"
+    />
+  } @else if (!ticketDeleted() && showMessage()) {
+    <error-message
+      [messageTitle]="'Unable to delete ticket'"
+      [messageContent]="'An error occurred while deleting the ticket. Please try again.'"
+    />
+  }
+</div>
+
+@if (deleteTicketRxResource.isLoading()) {
+  <is-loading />
+}
+
+
+@if (tickets().length) {
+  <section
+    class="flex max-h-[calc(100vh-2rem)] flex-col overflow-hidden rounded-2xl border border-base-300/70 bg-base-100 shadow-sm"
+  >
+    <!-- SECTION HEADER -->
+    <div class="shrink-0 border-b border-base-300/70 p-5">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex items-start gap-3">
+          <div
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"
+              />
+            </svg>
+          </div>
+
+          <div>
+            <h2 class="text-sm font-bold text-base-content">Gestión de tickets</h2>
+
+            <p class="mt-1 text-xs text-base-content/45">
+              Administra los tickets registrados en el sistema.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TICKET LIST -->
+    <div class="min-h-0 flex-1 overflow-y-auto divide-y divide-base-300/60 scrollbar-thin">
+      @if (showAllTickets()) {
+        @for (ticket of tickets(); track ticket.id) {
+          <article class="p-4 transition-colors hover:bg-base-200/30 sm:p-5">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center">
+              <div class="flex min-w-0 flex-1 items-start gap-3">
+                <div
+                  class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
+                >
+                  <span class="text-xs font-bold">#{{ ticket.id }}</span>
+                </div>
+
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h3 class="truncate text-sm font-bold text-base-content">
+                      {{ ticket.title }}
+                    </h3>
+
+                    <span
+                      class="rounded-full border border-warning/20 bg-warning/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-warning"
+                    >
+                      {{ ticket.status }}
+                    </span>
+                  </div>
+
+                  <p class="mt-1 line-clamp-1 text-xs text-base-content/45">
+                    {{ ticket.description }}
+                  </p>
+
+                  <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="text-[10px] text-base-content/35">
+                      Usuario: {{ ticket.user?.fullname }}
+                    </span>
+
+                    <span class="text-[10px] text-base-content/35">
+                      {{ getTimeAgo(ticket.createdAt) }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ACTIONS -->
+              <div class="flex shrink-0 items-center gap-2">
+                <button
+                  type="button"
+                  class="flex h-9 items-center gap-2 rounded-lg border border-info/20 bg-info/10 px-3 text-[10px] font-bold uppercase tracking-wide text-info transition-colors hover:bg-info hover:text-info-content"
+                  (click)="goToUpdateTicket(ticket.id)"
+                >
+                  Editar
+                </button>
+
+                <button
+                  type="button"
+                  class="flex h-9 items-center gap-2 rounded-lg border border-error/20 bg-error/10 px-3 text-[10px] font-bold uppercase tracking-wide text-error transition-colors hover:bg-error hover:text-error-content"
+                  (click)="deleteTicketButton(ticket.id)"
+                >
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          </article>
+        }
+      } @else {
+        @for (ticket of firstThreeTickets(); track ticket.id) {
+          <article class="p-4 transition-colors hover:bg-base-200/30 sm:p-5">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center">
+              <div class="flex min-w-0 flex-1 items-start gap-3">
+                <div
+                  class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
+                >
+                  <span class="text-xs font-bold">#{{ ticket.id }}</span>
+                </div>
+
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h3 class="truncate text-sm font-bold text-base-content">
+                      {{ ticket.title }}
+                    </h3>
+
+                    <span
+                      class="rounded-full border border-warning/20 bg-warning/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-warning"
+                    >
+                      {{ ticket.status }}
+                    </span>
+                  </div>
+
+                  <p class="mt-1 line-clamp-1 text-xs text-base-content/45">
+                    {{ ticket.description }}
+                  </p>
+
+                  <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="text-[10px] text-base-content/35">
+                      Usuario: {{ ticket.user?.fullname }}
+                    </span>
+
+                    <span class="text-[10px] text-base-content/35">
+                      {{ getTimeAgo(ticket.createdAt) }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ACTIONS -->
+              <div class="flex shrink-0 items-center gap-2">
+                <button
+                  type="button"
+                  class="flex h-9 items-center gap-2 rounded-lg border border-info/20 bg-info/10 px-3 text-[10px] font-bold uppercase tracking-wide text-info transition-colors hover:bg-info hover:text-info-content"
+                  (click)="goToUpdateTicket(ticket.id)"
+                >
+                  Editar
+                </button>
+
+                <button
+                  type="button"
+                  class="flex h-9 items-center gap-2 rounded-lg border border-error/20 bg-error/10 px-3 text-[10px] font-bold uppercase tracking-wide text-error transition-colors hover:bg-error hover:text-error-content"
+                  (click)="deleteTicketButton(ticket.id)"
+                >
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          </article>
+        }
+      }
+    </div>
+
+    <!-- FOOTER -->
+    <div
+      class="flex shrink-0 items-center justify-between border-t border-base-300/70 bg-base-200/20 px-5 py-3"
+    >
+      @if (!showAllTickets()) {
+        <p class="text-[10px] text-base-content/35">
+          Mostrando 3 de {{ tickets().length }} tickets
+        </p>
+      }
+
+      <button
+        type="button"
+        class="text-[10px] font-bold uppercase tracking-wider text-primary transition-colors hover:text-primary/70"
+        (click)="showAllTicketsButton()"
+      >
+        {{ showAllTickets() ? 'Ver menos' : 'Ver todos' }}
+      </button>
+    </div>
+  </section>
+} @else {
+  <!-- EMPTY STATE -->
+  <div class="flex flex-col items-center justify-center px-6 py-12 text-center">
+    <div
+      class="flex h-12 w-12 items-center justify-center rounded-xl bg-base-200 text-base-content/30"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="1.8"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"
+        />
+      </svg>
+    </div>
+
+    <p class="mt-4 text-sm font-semibold text-base-content">No hay tickets disponibles</p>
+
+    <p class="mt-1 text-xs text-base-content/40">Los tickets registrados aparecerán aquí.</p>
+  </div>
+}

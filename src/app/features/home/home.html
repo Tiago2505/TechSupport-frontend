@@ -1,0 +1,13 @@
+<div class="min-h-screen bg-base-200">
+  <main>
+    @if (currentUser()) {
+
+      <authenticated-home />
+
+    } @else {
+
+      <public-home />
+
+    }
+  </main>
+</div>

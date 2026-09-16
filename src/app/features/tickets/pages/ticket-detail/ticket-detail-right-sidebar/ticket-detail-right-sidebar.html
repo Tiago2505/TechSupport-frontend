@@ -1,0 +1,139 @@
+<aside class="space-y-5">
+  <!-- TECHNICIAN -->
+
+  @if (ticket().technician) {
+    <section class="rounded-2xl border border-base-300 bg-base-100 p-5 shadow-sm">
+      <p class="mb-4 text-[10px] font-semibold uppercase tracking-wider text-base-content/40">
+        Técnico asignado
+      </p>
+
+      <div class="flex items-center gap-3">
+        <div
+          class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-content"
+        >
+          {{ ticket().technician?.fullname | initials }}
+        </div>
+
+        <div class="min-w-0">
+          <p class="truncate text-sm font-bold text-base-content">
+            {{ ticket().technician?.fullname }}
+          </p>
+
+          <p class="text-xs text-base-content/45">Técnico de soporte</p>
+        </div>
+      </div>
+
+      <div class="mt-4 flex items-center gap-2 rounded-lg bg-success/10 px-3 py-2">
+        <span class="h-2 w-2 rounded-full bg-success"></span>
+
+        <span class="text-xs font-medium text-success"> Atendiendo tu solicitud </span>
+      </div>
+    </section>
+  } @else {
+    <div>
+      <no-technician />
+    </div>
+  }
+
+  <!-- TICKET DETAILS -->
+
+  <section class="rounded-2xl border border-base-300 bg-base-100 p-5 shadow-sm">
+    <p class="mb-4 text-[10px] font-semibold uppercase tracking-wider text-base-content/40">
+      Detalles del ticket
+    </p>
+
+    <div class="space-y-4">
+      <div class="flex items-center justify-between gap-4">
+        <span class="text-xs text-base-content/45"> Categoría </span>
+
+        <span class="text-right text-xs font-semibold text-base-content">
+          {{ ticket().categoryTicket }}
+        </span>
+      </div>
+
+      <div class="h-px bg-base-300"></div>
+
+      <div class="flex items-center justify-between gap-4">
+        <span class="text-xs text-base-content/45"> Prioridad </span>
+
+        <ticket-priority [ticketPriority]="ticket().priority" />
+      </div>
+
+      <div class="h-px bg-base-300"></div>
+
+      <div class="flex items-center justify-between gap-4">
+        <span class="text-xs text-base-content/45"> Estado </span>
+
+        <ticket-status [ticketStatus]="ticket().status" />
+      </div>
+
+      <div class="h-px bg-base-300"></div>
+
+      <div class="flex items-center justify-between gap-4">
+        <span class="text-xs text-base-content/45"> Creado </span>
+
+        <span class="text-right text-xs font-semibold text-base-content">
+          {{ ticket().createdAt | date: 'dd/MM/yyyy' }}
+        </span>
+      </div>
+
+      @if (ticket().closedAt) {
+        <div class="h-px bg-base-300"></div>
+
+        <div class="flex items-center justify-between gap-4">
+          <span class="text-xs text-base-content/45"> Cerrado </span>
+
+          <span class="text-right text-xs font-semibold text-base-content">
+            {{ ticket().closedAt | date: 'dd/MM/yyyy HH:mm' }}
+          </span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- AI DIAGNOSIS -->
+
+  @if(currentUser?.role === 'TECHNICIAN'){
+    <div>
+      <ai-ticket-diagnosis [diagnosis]="ticket().aiDiagnosis" />
+    </div>
+  }
+
+  <!-- HELP -->
+
+  <div class="rounded-2xl border border-primary/15 bg-primary/5 p-5">
+    <div class="flex gap-3">
+      <div
+        class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="9" />
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9.75 9a2.25 2.25 0 1 1 3.97 1.47c-.78.86-1.72 1.28-1.72 2.53"
+          />
+
+          <path stroke-linecap="round" d="M12 16.5h.01" />
+        </svg>
+      </div>
+
+      <div>
+        <p class="text-xs font-semibold text-base-content">¿Necesitas ayuda?</p>
+
+        <p class="mt-1 text-xs leading-5 text-base-content/50">
+          Si tienes información adicional sobre el problema, puedes comunicarla al técnico mediante
+          las notas del ticket.
+        </p>
+      </div>
+    </div>
+  </div>
+</aside>

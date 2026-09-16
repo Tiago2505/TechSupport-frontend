@@ -1,0 +1,42 @@
+<div
+  class="w-full p-2 rounded-xl"
+  [class.border-2]="manyImages()"
+  [class.border-error]="manyImages()"
+>
+  <div
+    class="w-full rounded-xl p-2"
+    [class.border-2]="manyImages()"
+    [class.border-error]="manyImages()"
+  >
+    <div class="grid grid-cols-2 gap-5 md:grid-cols-3 xl:grid-cols-4">
+      <!-- Imágenes actuales del ticket -->
+      @for (image of currentImagesInput(); track image.secureUrl) {
+        <app-image
+          [image]="image.secureUrl"
+          [wasImageDeleted]="wasImageDeleted(image.secureUrl)"
+          (DeleteBtnWasClicked)="deleteImage(image.secureUrl)"
+          (RestoreBtnWasClicked)="restoreImage(image.secureUrl)"
+        />
+      }
+
+      <!-- Nuevas imágenes seleccionadas -->
+      @for (image of newImages(); track $index) {
+        <app-image
+          [image]="image.url"
+          [wasImageDeleted]="wasImageDeleted(image.url)"
+          [isNewImage]="true"
+          (DeleteBtnWasClicked)="deleteImage(image.url)"
+          (RestoreBtnWasClicked)="restoreImage(image.url)"
+        />
+      }
+
+      @if (!containerFull()) {
+        <input-add-image-grid (files)="addImages($event)" />
+      }
+    </div>
+  </div>
+
+  @if (manyImages()) {
+    <error-icon errorText="límite máximo permitido es de 5 imágenes" />
+  }
+</div>

@@ -1,0 +1,427 @@
+<section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+  <!-- ================================================== -->
+  <!-- ENCABEZADO -->
+  <!-- ================================================== -->
+
+  <div class="overflow-hidden rounded-3xl bg-base-100 shadow-xl">
+    <div class="bg-primary px-6 py-10 text-primary-content sm:px-10 lg:px-14">
+      <div class="max-w-3xl">
+        <p class="mb-2 text-sm font-medium text-primary-content/70">Panel principal</p>
+
+        <h2 class="text-3xl font-bold sm:text-4xl">Bienvenido a Tech Support</h2>
+
+        <p class="mt-3 max-w-2xl text-sm leading-6 text-primary-content/75 sm:text-base">
+          Gestiona tus solicitudes de soporte, consulta el estado de tus gestiones y obtén
+          asistencia de manera rápida y sencilla.
+        </p>
+      </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- RESUMEN -->
+    <!-- ================================================== -->
+
+
+    <!-- ================================================== -->
+    <!-- ACCIONES PRINCIPALES -->
+    <!-- ================================================== -->
+
+    <div class="p-6 lg:p-8">
+      <div class="mb-5">
+        <h3 class="text-xl font-bold text-base-content">¿Qué necesitas hacer?</h3>
+
+        <p class="mt-1 text-sm text-base-content/60">
+          Accede rápidamente a las principales herramientas de soporte.
+        </p>
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- MIS GESTIONES -->
+        <button
+          type="button"
+          class="group rounded-2xl border border-base-300 bg-base-100 p-6 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
+        >
+          <div
+            class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 5.25h6M9 9.75h6M9 14.25h3"
+              />
+
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6.75 3h10.5A2.25 2.25 0 0119.5 5.25v13.5A2.25 2.25 0 0117.25 21H6.75a2.25 2.25 0 01-2.25-2.25V5.25A2.25 2.25 0 016.75 3z"
+              />
+            </svg>
+          </div>
+
+          <h3 class="text-lg font-bold text-base-content">Mis gestiones</h3>
+
+          <p class="mt-2 text-sm leading-6 text-base-content/60">
+            Consulta el historial, estado y detalles de todas tus solicitudes de soporte.
+          </p>
+
+          <div
+            class="mt-5 text-sm font-semibold text-primary opacity-0 transition-opacity group-hover:opacity-100"
+          >
+            Ver gestiones →
+          </div>
+        </button>
+
+        <!-- NUEVA SOLICITUD -->
+        <button
+          type="button"
+          class="group rounded-2xl border border-base-300 bg-base-100 p-6 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
+
+          (click)="goToCreateTicket()"
+        >
+          <div
+            class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15M19.5 12h-15" />
+            </svg>
+          </div>
+
+          <h3 class="text-lg font-bold text-base-content">Nueva solicitud</h3>
+
+          <p class="mt-2 text-sm leading-6 text-base-content/60">
+            Reporta un problema o solicita asistencia técnica creando una nueva gestión.
+          </p>
+
+          <div
+            class="mt-5 text-sm font-semibold text-primary opacity-0 transition-opacity group-hover:opacity-100"
+          >
+            Crear solicitud →
+          </div>
+        </button>
+
+        <!-- ASISTENTE IA -->
+        <button
+          type="button"
+          class="group rounded-2xl border border-base-300 bg-base-100 p-6 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
+        >
+          <div
+            class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 3v2.25M12 18.75V21M4.72 4.72l1.59 1.59M17.69 17.69l1.59 1.59M3 12h2.25M18.75 12H21"
+              />
+
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+              />
+            </svg>
+          </div>
+
+          <h3 class="text-lg font-bold text-base-content">Asistente IA</h3>
+
+          <p class="mt-2 text-sm leading-6 text-base-content/60">
+            Obtén orientación inmediata y ayuda para resolver tus dudas de soporte técnico.
+          </p>
+
+          <div
+            class="mt-5 text-sm font-semibold text-primary opacity-0 transition-opacity group-hover:opacity-100"
+          >
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================== -->
+  <!-- CÓMO FUNCIONA -->
+  <!-- ================================================== -->
+
+  <div class="mt-8">
+    <div class="mb-5">
+      <h3 class="text-xl font-bold text-base-content">¿Cómo funciona?</h3>
+
+      <p class="mt-1 text-sm text-base-content/60">
+        Resolver una solicitud de soporte es muy sencillo.
+      </p>
+    </div>
+
+    <div class="grid gap-5 md:grid-cols-3">
+      <!-- PASO 1 -->
+      <div class="rounded-2xl border border-base-300 bg-base-100 p-6 shadow-sm">
+        <div class="flex items-center gap-4">
+          <div
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-content"
+          >
+            1
+          </div>
+
+          <h4 class="font-bold text-base-content">Crea tu solicitud</h4>
+        </div>
+
+        <p class="mt-4 text-sm leading-6 text-base-content/60">
+          Describe el problema que estás experimentando y proporciona la información necesaria para
+          ayudarte.
+        </p>
+      </div>
+
+      <!-- PASO 2 -->
+      <div class="rounded-2xl border border-base-300 bg-base-100 p-6 shadow-sm">
+        <div class="flex items-center gap-4">
+          <div
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-content"
+          >
+            2
+          </div>
+
+          <h4 class="font-bold text-base-content">Seguimiento</h4>
+        </div>
+
+        <p class="mt-4 text-sm leading-6 text-base-content/60">
+          Consulta el estado de tu gestión y mantente informado sobre el progreso de tu solicitud.
+        </p>
+      </div>
+
+      <!-- PASO 3 -->
+      <div class="rounded-2xl border border-base-300 bg-base-100 p-6 shadow-sm">
+        <div class="flex items-center gap-4">
+          <div
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-content"
+          >
+            3
+          </div>
+
+          <h4 class="font-bold text-base-content">Solución</h4>
+        </div>
+
+        <p class="mt-4 text-sm leading-6 text-base-content/60">
+          Nuestro equipo dará seguimiento a tu solicitud hasta encontrar una solución.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================== -->
+  <!-- BENEFICIOS -->
+  <!-- ================================================== -->
+
+  <div class="mt-8 rounded-3xl bg-base-100 p-6 shadow-sm sm:p-8">
+    <div class="mb-6">
+      <h3 class="text-xl font-bold text-base-content">Todo tu soporte en un solo lugar</h3>
+
+      <p class="mt-1 text-sm text-base-content/60">
+        Tech Support está diseñado para hacer más sencilla la gestión de tus solicitudes.
+      </p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <!-- BENEFICIO -->
+      <div>
+        <div
+          class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2" />
+
+            <circle cx="12" cy="12" r="9" />
+          </svg>
+        </div>
+
+        <h4 class="mt-4 font-semibold text-base-content">Seguimiento</h4>
+
+        <p class="mt-1 text-sm leading-6 text-base-content/60">
+          Consulta el progreso de tus solicitudes en cualquier momento.
+        </p>
+      </div>
+
+      <!-- BENEFICIO -->
+      <div>
+        <div
+          class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8.25 15L12 18.75 15.75 15M12 18.75V3"
+            />
+
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 21h13.5" />
+          </svg>
+        </div>
+
+        <h4 class="mt-4 font-semibold text-base-content">Historial</h4>
+
+        <p class="mt-1 text-sm leading-6 text-base-content/60">
+          Mantén organizadas todas tus gestiones anteriores.
+        </p>
+      </div>
+
+      <!-- BENEFICIO -->
+      <div>
+        <div
+          class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9.75 9.75h.008v.008H9.75V9.75zM14.25 9.75h.008v.008h-.008V9.75z"
+            />
+
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8.25 14.25c1.125 1 2.25 1.5 3.75 1.5s2.625-.5 3.75-1.5"
+            />
+
+            <circle cx="12" cy="12" r="9" />
+          </svg>
+        </div>
+
+        <h4 class="mt-4 font-semibold text-base-content">Asistencia</h4>
+
+        <p class="mt-1 text-sm leading-6 text-base-content/60">
+          Obtén ayuda rápida cuando necesites orientación.
+        </p>
+      </div>
+
+      <!-- BENEFICIO -->
+      <div>
+        <div
+          class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 3l7.5 3v5.25c0 4.5-3 7.5-7.5 9-4.5-1.5-7.5-4.5-7.5-9V6L12 3z"
+            />
+
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" />
+          </svg>
+        </div>
+
+        <h4 class="mt-4 font-semibold text-base-content">Seguro y organizado</h4>
+
+        <p class="mt-1 text-sm leading-6 text-base-content/60">
+          Accede a tu información de soporte desde un entorno organizado.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================== -->
+  <!-- AYUDA RÁPIDA -->
+  <!-- ================================================== -->
+
+  <div
+    class="mt-8 flex flex-col gap-5 rounded-3xl border border-primary/20 bg-primary/5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8"
+  >
+    <div>
+      <div class="flex items-center gap-3">
+        <div
+          class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-content"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9.75 9.75a2.25 2.25 0 114.5 0c0 1.5-2.25 2.25-2.25 2.25v1.5"
+            />
+
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 17.25h.008v.008H12v-.008z"
+            />
+
+            <circle cx="12" cy="12" r="9" />
+          </svg>
+        </div>
+
+        <h3 class="font-bold text-base-content">¿Necesitas ayuda?</h3>
+      </div>
+
+      <p class="mt-2 text-sm leading-6 text-base-content/60">
+        Nuestro asistente inteligente puede orientarte rápidamente antes de crear una nueva
+        solicitud.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ================================================== -->
+  <!-- FOOTER -->
+  <!-- ================================================== -->
+
+  <div class="py-8 text-center">
+    <p class="text-sm text-base-content/40">Tech Support · Plataforma de soporte técnico</p>
+
+    <p class="mt-1 text-xs text-base-content/30">
+      Gestiona tus solicitudes de forma rápida, sencilla y organizada.
+    </p>
+  </div>
+  <chatbot />
+</section>
