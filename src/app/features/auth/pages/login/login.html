@@ -1,0 +1,126 @@
+<div class="w-full flex fixed justify-center items-center z-9999">
+  @if (loginSuccess() && showMessage()) {
+    <success-message
+      messageTitle="Sesión iniciada"
+      messageContent="Has iniciado sesión correctamente. ¡Bienvenido a Tech Support!"
+    />
+  } @else if (showMessage() && loginButtonPressed()) {
+    <error-message
+      messageTitle="Error al iniciar sesión"
+      messageContent="Revisa la información ingresada e inténtalo nuevamente."
+    />
+  }
+</div>
+
+@if (loginRxResource.isLoading()) {
+  <is-loading />
+}
+
+<div class="flex min-h-screen items-center justify-center bg-base-200 px-4 py-8">
+  <div
+    class="w-full max-w-5xl overflow-hidden rounded-3xl bg-base-100 shadow-2xl lg:grid lg:grid-cols-2"
+  >
+    <left-panel />
+
+    <!-- PANEL DERECHO -->
+    <div class="p-7 sm:p-10 lg:p-12">
+      <!-- Encabezado -->
+      <right-panel-header />
+
+      <!-- FORMULARIO -->
+      <form class="flex flex-col gap-5" [formGroup]="loginForm">
+        <!-- CORREO -->
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text font-semibold"> Correo electrónico </span>
+          </label>
+
+          <label
+            class="input input-bordered w-full flex h-13 items-center gap-3 rounded-xl bg-base-200/40 transition focus-within:border-primary focus-within:bg-base-100 focus-within:ring-2 focus-within:ring-primary/20"
+          >
+            <!-- Icono correo -->
+            <email-icon />
+
+            <input
+              type="email"
+              placeholder="correo@ejemplo.com"
+              class="grow bg-transparent"
+              formControlName="email"
+            />
+          </label>
+
+          @if (loginForm.get('email')?.errors && loginForm.get('email')!.touched) {
+            <span class="text-error text-sm">{{
+              getErrorMessage(loginForm.get('email')!, 'email')
+            }}</span>
+          }
+        </div>
+
+        <!-- CONTRASEÑA -->
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text font-semibold"> Contraseña </span>
+          </label>
+
+          <label
+            class="input input-bordered flex w-full h-13 items-center gap-3 rounded-xl bg-base-200/40 transition focus-within:border-primary focus-within:bg-base-100 focus-within:ring-2 focus-within:ring-primary/20"
+          >
+            <!-- Icono contraseña -->
+            <password-icon />
+
+            <input
+              [type]="showPassword() ? 'text' : 'password'"
+              placeholder="••••••••"
+              class="grow bg-transparent"
+              formControlName="password"
+
+              (keyup.enter)="login()"
+            />
+
+            <!-- Mostrar contraseña -->
+            <show-password (showPasswordOutput)="showPassword.set($event)" />
+          </label>
+
+          @if (loginForm.get('password')?.errors && loginForm.get('password')!.touched) {
+            <span class="text-error text-sm">{{
+              getErrorMessage(loginForm.get('password')!, 'password')
+            }}</span>
+          }
+        </div>
+
+        <!-- RECORDAR / OLVIDÉ CONTRASEÑA -->
+        <div class="flex items-center justify-between gap-3">
+          <label class="flex cursor-pointer items-center gap-2">
+            <input
+              type="checkbox"
+              class="checkbox checkbox-sm checkbox-primary"
+              formControlName="rememberMe"
+            />
+
+            <span class="text-sm text-base-content/70"> Recordarme </span>
+          </label>
+
+          <button
+            type="button"
+            class="text-sm font-semibold text-primary transition hover:underline"
+            (click)="goToForgotPassword()"
+          >
+            ¿Olvidaste tu contraseña?
+          </button>
+        </div>
+
+        <!-- BOTÓN LOGIN -->
+        <button
+          type="button"
+          class="btn btn-primary mt-2 h-12 rounded-xl text-base font-semibold shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/25"
+          (click)="login()"
+        >
+          Iniciar sesión
+        </button>
+      </form>
+
+      <!-- REGISTRO -->
+      <login-register-link />
+    </div>
+  </div>
+</div>

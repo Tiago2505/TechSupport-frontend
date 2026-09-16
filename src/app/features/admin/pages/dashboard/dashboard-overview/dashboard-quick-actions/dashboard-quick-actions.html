@@ -1,0 +1,102 @@
+<section>
+  <div class="mb-4 flex items-center gap-2">
+    <div class="h-1.5 w-1.5 rounded-full bg-primary"></div>
+
+    <h2 class="text-xs font-bold uppercase tracking-wider text-base-content/50">Administración</h2>
+  </div>
+
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+    <!-- USER MANAGEMENT -->
+    <button
+      type="button"
+      class="group flex items-center gap-4 rounded-2xl border border-info/15 bg-base-100 p-4 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-info/30 hover:shadow-md"
+
+      (click)="goToUsersManagement()"
+    >
+      <div
+        class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-info/10 text-info transition-colors group-hover:bg-info group-hover:text-info-content"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+          />
+
+          <circle cx="9" cy="7" r="4" />
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"
+          />
+        </svg>
+      </div>
+
+      <div class="min-w-0 flex-1">
+        <p class="text-sm font-bold text-base-content">Gestionar usuarios</p>
+
+        <p class="mt-0.5 text-xs text-base-content/45">Administrar cuentas del sistema</p>
+      </div>
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4 shrink-0 text-base-content/25 transition-transform group-hover:translate-x-1 group-hover:text-info"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="1.8"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+    <!-- LOGS -->
+    <button
+      type="button"
+      class="group flex items-center gap-4 rounded-2xl border border-warning/15 bg-base-100 p-4 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-warning/30 hover:shadow-md"
+    >
+      <div
+        class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-warning/10 text-warning transition-colors group-hover:bg-warning group-hover:text-warning-content"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 5h16v14H4V5z" />
+
+          <path stroke-linecap="round" d="M8 9h8M8 13h5" />
+        </svg>
+      </div>
+
+      <div class="min-w-0 flex-1">
+        <p class="text-sm font-bold text-base-content">Ver logs</p>
+
+        <p class="mt-0.5 text-xs text-base-content/45">Consulta la actividad del sistema</p>
+      </div>
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4 shrink-0 text-base-content/25 transition-transform group-hover:translate-x-1 group-hover:text-warning"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="1.8"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+</section>

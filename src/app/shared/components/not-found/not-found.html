@@ -1,0 +1,35 @@
+<div class="flex min-h-[500px] items-center justify-center px-4 py-10">
+  <div class="w-full max-w-md text-center">
+    <!-- ICON -->
+    <div
+      class="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-warning/10 text-warning"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-10 w-10"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="1.8"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 9v4m0 4h.01M10.29 3.86l-8.1 14A2 2 0 0 0 3.92 21h16.16a2 2 0 0 0 1.73-3.14l-8.1-14a2 2 0 0 0-3.42 0Z"
+        />
+      </svg>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="mt-6">
+      <h2 class="text-xl font-bold tracking-tight text-base-content sm:text-2xl">
+        {{entityNotFoundName()}} no encontrado
+      </h2>
+
+      <p class="mx-auto mt-2 max-w-sm text-sm leading-6 text-base-content/55 sm:text-base">
+        El {{entityNotFoundName()}} que estás buscando no existe, fue eliminado o ya no está disponible.
+      </p>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div
+  class="group relative rounded-2xl overflow-hidden border border-base-300 bg-base-100 shadow-md hover:shadow-xl transition-all duration-300"
+>
+  <img
+    [src]="image()"
+    class="w-full h-56 object-cover group-hover:scale-105 transition duration-300"
+    [class.opacity-40]="wasImageDeleted()"
+    [class.grayscale]="wasImageDeleted()"
+  />
+
+  @if (isNewImage()) {
+    <new-icon-image />
+  }
+
+  @if (wasImageDeleted()) {
+    <btn-restore-image-grid (wasClicked)="RestoreBtnWasClicked.emit(true)" />
+  } @else {
+    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div>
+
+    <btn-delete-image-grid (wasClicked)="DeleteBtnWasClicked.emit(true)" />
+  }
+</div>

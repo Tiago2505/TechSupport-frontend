@@ -1,0 +1,374 @@
+<div class="w-full flex top-0 fixed justify-center items-center z-9999">
+  @if (ticketReopened() && showMessage()) {
+    <success-message
+      messageTitle="Ticket reopened successfully"
+      messageContent="The ticket has been reopened successfully and is now available for further attention."
+    />
+  } @else if (!ticketReopened() && showMessage()) {
+    <error-message
+      messageTitle="Unable to reopen ticket"
+      messageContent="We couldn't reopen the ticket. Please verify the ticket status and try again."
+    />
+  }
+</div>
+
+@if (reopenTicketRxResource.isLoading()) {
+  <is-loading />
+}
+
+<div class="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+  <div class="mb-5 flex items-center justify-between gap-4">
+    <my-tickets-header [totalTickets]="myTicketsRxResource.value()?.length ?? 0" />
+
+    <button
+      type="button"
+      class="btn btn-primary rounded-xl px-4 shadow-sm shadow-primary/20 transition-all duration-200 hover:shadow-md hover:shadow-primary/20"
+      (click)="goToCreateTicket()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+      </svg>
+
+      <span>Crear ticket</span>
+    </button>
+  </div>
+
+  @if (myTicketsRxResource.hasValue()) {
+    <!-- TICKETS -->
+    <div class="grid grid-cols-1 items-start gap-5 lg:grid-cols-2">
+      @for (ticket of myTicketsRxResource.value(); track ticket.id) {
+        <article
+          class="group flex flex-col overflow-hidden rounded-2xl border border-base-300 bg-base-100 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-lg hover:shadow-base-content/5"
+        >
+          <!-- TOP -->
+          <div class="border-b border-base-300 p-5">
+            <!-- TICKET INFO -->
+            <div class="flex items-start justify-between gap-4">
+              <div class="min-w-0">
+                <div class="mb-2 flex flex-wrap items-center gap-2">
+                  <span
+                    class="rounded-md bg-base-200 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-base-content/50"
+                  >
+                    #{{ ticket.id }}
+                  </span>
+                  <ticket-status [ticketStatus]="ticket.status" />
+                </div>
+
+                <h2
+                  class="truncate text-lg font-bold tracking-tight text-base-content sm:text-xl"
+                  [title]="ticket.title"
+                >
+                  {{ ticket.title }}
+                </h2>
+              </div>
+
+              <!-- PRIORITY -->
+              <ticket-priority [ticketPriority]="ticket.priority" />
+            </div>
+
+            <!-- DESCRIPTION -->
+            <p class="mt-3 line-clamp-2 text-sm leading-5 text-base-content/60">
+              {{ ticket.description }}
+            </p>
+
+            <!-- TAGS -->
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="rounded-lg bg-primary/8 px-2.5 py-1 text-xs font-medium text-primary">
+                {{ ticket.categoryTicket }}
+              </span>
+
+              <span
+                class="rounded-lg bg-base-200 px-2.5 py-1 text-xs font-medium text-base-content/60"
+              >
+                {{ ticket.deviceType }}
+              </span>
+            </div>
+          </div>
+
+          <!-- DEVICE -->
+          <div class="border-b border-base-300 bg-base-200/30 px-5 py-4">
+            <div class="mb-3 flex items-center gap-2">
+              <div
+                class="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary"
+              >
+                <my-tickets-device-icon />
+              </div>
+
+              <span class="text-xs font-semibold text-base-content/60"> Dispositivo </span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-x-5 gap-y-3 sm:grid-cols-4">
+              <!-- TIPO -->
+              <div class="min-w-0">
+                <p class="text-[10px] font-medium uppercase tracking-wider text-base-content/35">
+                  Tipo
+                </p>
+
+                <p class="mt-0.5 truncate text-xs font-semibold text-base-content">
+                  {{ ticket.deviceType }}
+                </p>
+              </div>
+
+              <!-- MARCA -->
+              <div class="min-w-0">
+                <p class="text-[10px] font-medium uppercase tracking-wider text-base-content/35">
+                  Marca
+                </p>
+
+                @if (ticket.deviceBrand) {
+                  <p class="mt-0.5 truncate text-xs font-semibold text-base-content">
+                    {{ ticket.deviceBrand }}
+                  </p>
+                } @else {
+                  <div class="mt-1">
+                    <not-specified />
+                  </div>
+                }
+              </div>
+
+              <!-- MODELO -->
+              <div class="min-w-0">
+                <p class="text-[10px] font-medium uppercase tracking-wider text-base-content/35">
+                  Modelo
+                </p>
+
+                @if (ticket.deviceModel) {
+                  <p class="mt-0.5 truncate text-xs font-semibold text-base-content">
+                    {{ ticket.deviceModel }}
+                  </p>
+                } @else {
+                  <div class="mt-1">
+                    <not-specified />
+                  </div>
+                }
+              </div>
+
+              <!-- SISTEMA OPERATIVO -->
+              <div class="min-w-0">
+                <p class="text-[10px] font-medium uppercase tracking-wider text-base-content/35">
+                  Sistema
+                </p>
+
+                <p class="mt-0.5 truncate text-xs font-semibold text-base-content">
+                  {{ ticket.operatingSystem }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- EVIDENCE -->
+          @if (ticket.evidence.length) {
+            <image-gallery [images]="ticket.evidence" />
+          }
+
+          <!-- FOOTER -->
+          <div class="p-5">
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <!-- TECHNICIAN -->
+              @if (ticket.technician) {
+                <div class="flex min-w-0 items-center gap-2.5">
+                  <div
+                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-content"
+                  >
+                    {{ ticket.technician.fullname | initials }}
+                  </div>
+
+                  <div class="min-w-0">
+                    <p
+                      class="text-[10px] font-medium uppercase tracking-wider text-base-content/35"
+                    >
+                      Técnico asignado
+                    </p>
+
+                    <p class="truncate text-xs font-semibold text-base-content">
+                      {{ ticket.technician.fullname }}
+                    </p>
+                  </div>
+                </div>
+              } @else {
+                <div class="flex min-w-0 items-center gap-2.5">
+                  <div
+                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-base-200 text-xs font-bold text-base-content/40"
+                  >
+                    ?
+                  </div>
+
+                  <div class="min-w-0">
+                    <p
+                      class="text-[10px] font-medium uppercase tracking-wider text-base-content/35"
+                    >
+                      Técnico asignado
+                    </p>
+
+                    <p class="truncate text-xs font-semibold text-base-content/50">Sin asignar</p>
+                  </div>
+                </div>
+              }
+
+              <!-- DATE + ACTIONS -->
+              <div class="flex items-center justify-between gap-3 sm:justify-end">
+                <!-- DATE -->
+                <div class="hidden text-right lg:block">
+                  <p class="text-[10px] font-medium uppercase tracking-wider text-base-content/35">
+                    Creado
+                  </p>
+
+                  <p class="mt-0.5 text-xs font-medium text-base-content/70">
+                    {{ ticket.createdAt | date: 'dd/MM/yyyy' }}
+                  </p>
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="flex shrink-0 items-center gap-2">
+                  @if (ticket.closedAt) {
+                    <!-- REOPEN -->
+                    <button
+                      type="button"
+                      class="btn btn-outline btn-success btn-sm rounded-lg px-3"
+                      (click)="reopenTicketButton(ticket.id)"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-3.5 w-3.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M3 12a9 9 0 1 0 3-6.708M3 4v6h6"
+                        />
+                      </svg>
+
+                      <span class="hidden sm:inline">Reabrir</span>
+                    </button>
+                  } @else {
+                    <!-- CLOSE -->
+                    <button
+                      type="button"
+                      class="btn btn-outline btn-error btn-sm rounded-lg px-3"
+                      (click)="openCloseTicket(ticket.id)"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-3.5 w-3.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 6l12 12M6 18 18 6"
+                        />
+                      </svg>
+
+                      <span class="hidden sm:inline">Cerrar</span>
+                    </button>
+                  }
+
+                  <!-- DETAILS -->
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm rounded-lg px-4 shadow-sm shadow-primary/20 transition-all duration-200 group-hover:shadow-md group-hover:shadow-primary/20"
+                    (click)="goToTicketDetail(ticket.id)"
+                  >
+                    Ver detalles
+
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-3.5 w-3.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  } @else if (myTicketsRxResource.isLoading()) {
+    <is-loading />
+  } @else {
+    <empty-tickets />
+  }
+
+  <!-- CLOSE TICKET MODAL -->
+  @if (showCloseTicketModal() && selectedTicketId()) {
+    <div
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+      (click)="closeTicketModal()"
+    >
+      <div
+        class="w-full max-w-lg overflow-hidden rounded-2xl border border-base-300 bg-base-200 shadow-2xl"
+        (click)="$event.stopPropagation()"
+      >
+        <!-- MODAL HEADER -->
+        <div
+          class="flex items-center justify-between border-b border-base-300 bg-base-300/60 px-5 py-4"
+        >
+          <div class="flex items-center gap-3">
+            <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-error/10 text-error">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4.5 w-4.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M6 18 18 6" />
+              </svg>
+            </div>
+
+            <div>
+              <h2 class="text-sm font-bold text-base-content">Cerrar ticket</h2>
+
+              <p class="mt-0.5 text-xs text-base-content/45">Ticket #{{ selectedTicketId() }}</p>
+            </div>
+          </div>
+
+          <!-- CLOSE MODAL -->
+          <button
+            type="button"
+            class="btn btn-ghost btn-sm btn-square rounded-lg text-base-content/50 hover:bg-base-content/10 hover:text-base-content"
+            (click)="closeTicketModal()"
+            aria-label="Cerrar ventana"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M6 18 18 6" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- MODAL CONTENT -->
+        <div class="max-h-[75vh] overflow-y-auto p-5">
+          <close-ticket [ticketId]="selectedTicketId()!" />
+        </div>
+      </div>
+    </div>
+  }
+</div>

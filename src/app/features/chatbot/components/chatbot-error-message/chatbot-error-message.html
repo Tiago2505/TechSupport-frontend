@@ -1,0 +1,58 @@
+<div class="mb-4 flex items-start gap-2">
+  <!-- Icon -->
+  <div
+    class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-error text-error-content"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-4 w-4"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M12 9v4m0 4h.01M10.29 3.86l-8.18 14a2 2 0 001.73 3h16.32a2 2 0 001.73-3l-8.18-14a2 2 0 00-3.42 0z"
+      />
+    </svg>
+  </div>
+
+  <!-- Error message -->
+  <div
+    class="max-w-[80%] rounded-2xl rounded-tl-sm border border-error/20 bg-error/5 px-4 py-3 shadow-sm"
+  >
+    <p class="text-sm leading-6 text-base-content">Something went wrong. Please try again later.</p>
+
+    <!-- Try again -->
+    <button
+      type="button"
+      class="btn btn-error btn-sm mt-3 h-8 min-h-8 gap-2 rounded-lg px-3 text-error-content"
+
+      (click)="tryAgain()()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-3.5 w-3.5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M20 11a8.1 8.1 0 00-15.5-2M4 5v4h4"
+        />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M4 13a8.1 8.1 0 0015.5 2M20 19v-4h-4"
+        />
+      </svg>
+
+      Try again
+    </button>
+  </div>
+</div>
