@@ -13,5 +13,7 @@ export class AuthenticatedNavbar {
 
   currentUser = input.required<JwtPayload>();
 
+  navigationService = inject(NavigationService);
+
 
 }

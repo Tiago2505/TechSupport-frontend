@@ -63,4 +63,11 @@ export class NavigationService {
     this.router.navigate([`/users/update/${id}`]);
   }
 
+  goToAdminDashboard(){
+    this.router.navigate(['/admin/dashboard']);
+  }
+
+  goToAuditLogs(){
+    this.router.navigate(['/audit'])
+  }
 }
