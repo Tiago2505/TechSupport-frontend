@@ -40,6 +40,8 @@ export class TicketDetailHeader {
   ticketService = inject(TicketService);
   authService = inject(AuthService);
 
+  currentUser = this.authService.getUserFromToken();
+
   claimTicketId = signal<number | null>(null);
   claimedTicket = signal<boolean>(false);
   showMessage = signal<boolean>(false);

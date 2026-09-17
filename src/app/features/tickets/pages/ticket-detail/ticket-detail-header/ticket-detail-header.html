@@ -87,40 +87,43 @@
         </div>
       </div>
 
-      <!-- ACTUALIZAR GESTIÓN -->
-      <button
-        type="button"
-        class="btn btn-outline gap-2 rounded-xl px-4 transition-all duration-200 hover:border-primary hover:bg-primary/10 hover:text-primary"
-
-        (click)="goToUpdateTicket()"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="1.8"
+      @if (currentUser?.role === 'TECHNICIAN') {
+        <!-- ACTUALIZAR GESTIÓN -->
+        <button
+          type="button"
+          class="btn btn-outline gap-2 rounded-xl px-4 transition-all duration-200 hover:border-primary hover:bg-primary/10 hover:text-primary"
+          (click)="goToUpdateTicket()"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M16.862 3.487a2.25 2.25 0 113.182 3.182L8.25 18.464 4 19.5l1.036-4.25L16.862 3.487z"
-          />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M14.5 5.5l4 4" />
-        </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M16.862 3.487a2.25 2.25 0 113.182 3.182L8.25 18.464 4 19.5l1.036-4.25L16.862 3.487z"
+            />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14.5 5.5l4 4" />
+          </svg>
 
-        <span>Actualizar gestión</span>
-      </button>
+          <span>Actualizar gestión</span>
+        </button>
+      }
 
       <!-- RECOGER GESTIÓN -->
-      <button
-        type="button"
-        class="btn btn-primary gap-2 rounded-xl px-4 shadow-sm shadow-primary/20 transition-all duration-200 hover:shadow-md hover:shadow-primary/25"
-        (click)="claimTicketButton(ticketId())"
-      >
-        <span>Recoger</span>
-      </button>
+      @if (currentUser?.role === 'TECHNICIAN') {
+        <button
+          type="button"
+          class="btn btn-primary gap-2 rounded-xl px-4 shadow-sm shadow-primary/20 transition-all duration-200 hover:shadow-md hover:shadow-primary/25"
+          (click)="claimTicketButton(ticketId())"
+        >
+          <span>Recoger</span>
+        </button>
+      }
     </div>
   </div>
 </div>
