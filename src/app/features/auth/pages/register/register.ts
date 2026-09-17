@@ -43,6 +43,8 @@ export class Register {
       if (this.registerRxResource.hasValue()) {
         this.message.set('Your account has been created successfully.');
         this.registerSuccessTimeout();
+
+        this.goToHome();
         return;
       }
 
@@ -126,5 +128,11 @@ export class Register {
 
   goToLogin() {
     this.navigationService.goToLogin();
+  }
+
+  goToHome(){
+    setTimeout(() => {
+      this.navigationService.goToHome();
+    }, 2000);
   }
 }
