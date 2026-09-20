@@ -90,7 +90,11 @@ export class AuthService {
   }
 
   register(registerDto: RegisterDto): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.baseUrl}/auth/register`, registerDto);
+    return this.http.post<LoginResponse>(`${this.baseUrl}/auth/register`, registerDto).pipe(
+      tap(resp=>{
+        this.storageService.saveToLocalStorage('token', resp.token);
+      })
+    )
   }
 
   forgotPassword(email: string): Observable<VerificationCodeEntity> {

@@ -76,4 +76,9 @@ export class Dashboard {
     this.navigationService.goToUsersManagement();
   }
 
+  goToAuditLogs(){
+    this.navigationService.goToAuditLogs();
+  }
+
+
 }

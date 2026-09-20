@@ -40,6 +40,8 @@
         <button
           type="button"
           class="group rounded-2xl border border-base-300 bg-base-100 p-6 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
+
+          (click)="goToAllTickets()"
         >
           <div
             class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary"
@@ -423,5 +425,7 @@
       Gestiona tus solicitudes de forma rápida, sencilla y organizada.
     </p>
   </div>
-  <chatbot />
+  @if (currentUser?.role === 'USER') {
+    <chatbot />
+  }
 </section>

@@ -12,4 +12,8 @@ export class DashboardQuickActions {
   goToUsersManagement(){
     this.navigationService.goToUsersManagement();
   }
+
+  goToAuditLogs(){
+    this.navigationService.goToAuditLogs();
+  }
 }
